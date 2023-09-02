@@ -1,0 +1,23 @@
+Tasks
+1. create Web access only to public folder
+    1. for apache create .htaccess file
+    2. for nginx configuration
+    3. i will skip for now, as will use inner php server
+2. Create init boot file, with enviroment variables
+    1. Develop and Prod modes
+    2. const of ROOT, PUBLIC, APP, FRAMEWORK, LIBS, CACHE, CONFIG, LAYOUT, ADMIN
+    3. const for domain name: http or https
+    4. require autoload
+3. Register class
+    1. Create singlton Registry class 
+    2. Create trait to avoid dubliating if singleton pattern
+    3. create env.php with configuration array
+    4. fill registry with them
+4. Error handler class
+    1. check App mode: developer or production
+    2. use const Debug,
+    3. set_exception_handler
+    4. Error logger and display error methods
+    5. create templates for 404, 500 errors
+5. Router
+    1. Write my own implementation of Router MVC 

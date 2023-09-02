@@ -1,7 +1,7 @@
 {
 	"autoload": {
 		"psr-4": {
-			"IShop": "app/",
+			"IShop\\": "app/",
 			"IShop\\Framework\\": "lib/framework"
 		}
 	},
