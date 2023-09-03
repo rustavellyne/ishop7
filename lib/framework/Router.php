@@ -55,7 +55,7 @@ class Router
         $prefix = $prefix ? ucfirst($prefix) . "\\" : '';
         $controllerClass = "\\IShop\\Controller\\$prefix{$controller}Controller";
         if (class_exists($controllerClass)) {
-            $class = new $controllerClass($parameters, $request);
+            $class = new $controllerClass($route);
             if (!method_exists($class, $action)) { 
                 throw new \Exception("Page Not Found: action => {$action}");
             }

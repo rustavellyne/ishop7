@@ -2,7 +2,7 @@
 
 namespace IShop\Controller;
 
-class PageController
+class PageController extends BaseController
 {
     public function index()
     {

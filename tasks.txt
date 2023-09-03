@@ -21,3 +21,6 @@ Tasks
     5. create templates for 404, 500 errors
 5. Router
     1. Write my own implementation of Router MVC 
+6. Controller, View
+    1. Create base controller
+    2. Create base View
