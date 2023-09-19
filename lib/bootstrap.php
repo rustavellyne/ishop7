@@ -12,7 +12,9 @@ define("FRAMEWORK", LIB . DS . "framework");
 define("TMP", ROOT . DS . "var");
 define("CACHE", TMP . DS . "cache");
 define("CONFIG", ROOT . DS . "config");
-define("LAYOUT", "default");
+# define("LAYOUT", "default");
+define("LAYOUT", "frontview");
+define("VIEWS", APP . DS . "views");
 
 require_once(VENDOR . DS . "autoload.php");
 require_once("functions.php");

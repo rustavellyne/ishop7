@@ -22,9 +22,12 @@ class Router
 
     private function parseUrl(string $url): array
     {
+        $parseUrl = parse_url($url);
+        $url = $parseUrl['path'];
+        $parseUrl['query'] = $parseUrl['query'] ?? '';
         $url = trim($url, '/');
+        
         $parts = explode('/', $url);
-        var_dump($parts);
         $prefix = '';
         if($parts[0] === 'admin') {
             $prefix = array_shift($parts);
@@ -33,6 +36,7 @@ class Router
         $controller = ucfirst(!empty($parts[0]) ? $parts[0] : $this->defaultIndex);
         $action = !empty($parts[1]) ? $parts[1] : $this->defaultIndex;
         $parameters = array_slice($parts, 2);
+        parse_str($parseUrl['query'], $parameters['GET']);
         return compact('controller', 'action', 'parameters', 'prefix');
     }
 

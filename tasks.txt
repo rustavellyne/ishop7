@@ -24,3 +24,22 @@ Tasks
 6. Controller, View
     1. Create base controller
     2. Create base View
+7. Refactor
+    1. Remove query string "?foo=bar"
+    2. Composer Redbean
+    3. Create config for connecting to db
+    4. create DB for project
+    5. create DB class for connecting to ReadBean
+8. Find and import html tamplate to project
+9. create tables for Shop (user video as reference)
+    1. user table;
+    2. render Brands on main page (if needed create content in db); 
+
+
+
+
+
+
+
+
+

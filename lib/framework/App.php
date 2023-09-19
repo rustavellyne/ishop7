@@ -9,13 +9,13 @@ class App
     private \IShop\Framework\Router $router;
     private array $request = [];
 
-    public $registry;
+    private static $registry;
 
     public function __construct($router, $request)
     {
         $this->request = $request;
         $this->router = $router;
-        $this->registry = Registry::getInstance();
+        self::$registry = Registry::getInstance();
         $this->fetchParams();
         new ErrorHandler();
     }
@@ -25,7 +25,7 @@ class App
         $params = require(CONFIG . DS . 'env.php');
         if (!empty($params)) {
             foreach ($params as $key => $value) {
-                $this->registry->setProperty($key, $value);
+                self::$registry->setProperty($key, $value);
             }
         }
         return true;
@@ -36,7 +36,12 @@ class App
         $this->router->dispatch($this->request);
     }
 
-
-
+    public static function getProperties(?string $key = null)
+    {
+        if ($key === null) {
+            return self::$registry->getProperties();
+        }
+        return self::$registry->getProperty($key);
+    }
 }
 

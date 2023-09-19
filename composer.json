@@ -5,7 +5,7 @@
 			"IShop\\Framework\\": "lib/framework"
 		}
 	},
-	"require-dev": {},
-	"require": {}
+	"require": {
+		"gabordemooij/redbean": "^5.7"
+	}
 }
-
