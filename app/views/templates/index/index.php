@@ -42,120 +42,43 @@
 </div>
 <!--about-end-->
 <!--product-starts-->
+<?php if (!empty($popularProjects)) : ?>
 <div class="product"> 
 	<div class="container">
 		<div class="product-top">
 			<div class="product-one">
+                <?php foreach ($popularProjects as $product): ?>
 				<div class="col-md-3 product-left">
 					<div class="product-main simpleCart_shelfItem">
-						<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="images/p-1.png" alt="" /></a>
+						<a href="product/view/<?= $product->alias ?>" class="mask">
+                            <img class="img-responsive zoom-img" src="images/<?= $product->img ?>" alt="<?= $product->title ?>" />
+                        </a>
 						<div class="product-bottom">
-							<h3>Smart Watches</h3>
+							<h3><?= $product->title ?></h3>
 							<p>Explore Now</p>
-							<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+							<h4>
+                                <a class="item_add add-to-cart-link" href="cart/add?id=<?= $product->id ?>">
+                                    <i></i>
+                                </a>
+                                <span class=" item_price"><?= /** @var array $currency */
+                                    priceCurrency($product->price, $currency); ?></span>
+                                <?php if ($product->old_price): ?>
+                                <small>
+                                    <del> <?= priceCurrency($product->old_price, $currency);?></del>
+                                </small>
+                                <?php endif; ?>
+                            </h4>
 						</div>
 						<div class="srch">
 							<span>-50%</span>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-3 product-left">
-					<div class="product-main simpleCart_shelfItem">
-						<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="images/p-2.png" alt="" /></a>
-						<div class="product-bottom">
-							<h3>Smart Watches</h3>
-							<p>Explore Now</p>
-							<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-						</div>
-						<div class="srch">
-							<span>-50%</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 product-left">
-					<div class="product-main simpleCart_shelfItem">
-						<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="images/p-3.png"  alt="" /></a>
-						<div class="product-bottom">
-							<h3>Smart Watches</h3>
-							<p>Explore Now</p>
-							<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-						</div>
-						<div class="srch">
-							<span>-50%</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 product-left">
-					<div class="product-main simpleCart_shelfItem">
-						<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="images/p-4.png" alt="" /></a>
-						<div class="product-bottom">
-							<h3>Smart Watches</h3>
-							<p>Explore Now</p>
-							<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-						</div>
-						<div class="srch">
-							<span>-50%</span>
-						</div>
-					</div>
-				</div>
+				<?php endforeach; ?>
 				<div class="clearfix"></div>
 			</div>
-			<div class="product-one">
-				<div class="col-md-3 product-left">
-					<div class="product-main simpleCart_shelfItem">
-						<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="images/p-5.png" alt="" /></a>
-						<div class="product-bottom">
-							<h3>Smart Watches</h3>
-							<p>Explore Now</p>
-							<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-						</div>
-						<div class="srch">
-							<span>-50%</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 product-left">
-					<div class="product-main simpleCart_shelfItem">
-						<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="images/p-6.png" alt="" /></a>
-						<div class="product-bottom">
-							<h3>Smart Watches</h3>
-							<p>Explore Now</p>
-							<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-						</div>
-						<div class="srch">
-							<span>-50%</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 product-left">
-					<div class="product-main simpleCart_shelfItem">
-						<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="images/p-7.png" alt="" /></a>
-						<div class="product-bottom">
-							<h3>Smart Watches</h3>
-							<p>Explore Now</p>
-							<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-						</div>
-						<div class="srch">
-							<span>-50%</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 product-left">
-					<div class="product-main simpleCart_shelfItem">
-						<a href="single.html" class="mask"><img class="img-responsive zoom-img" src="images/p-8.png" alt="" /></a>
-						<div class="product-bottom">
-							<h3>Smart Watches</h3>
-							<p>Explore Now</p>
-							<h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
-						</div>
-						<div class="srch">
-							<span>-50%</span>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>					
 		</div>
 	</div>
 </div>
+<?php endif; ?>
 <!--product-end-->

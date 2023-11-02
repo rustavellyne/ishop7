@@ -26,6 +26,17 @@ class Db
         $this->connection = R::getRedBean();
     }
 
+    public function getAssoc($sql, $bindings = array())
+    {
+        return R::getAssoc($sql, $bindings = array());
+    }
+
+    public function findOne($type, $sql = NULL, $bindings = array())
+    {
+        return R::findOne($type, $sql = NULL, $bindings = array());
+    }
+
+
     public function __destruct()
     {
          R::close();

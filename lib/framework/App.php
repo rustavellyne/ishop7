@@ -9,7 +9,7 @@ class App
     private \IShop\Framework\Router $router;
     private array $request = [];
 
-    private static $registry;
+    public static Registry $registry;
 
     public function __construct($router, $request)
     {

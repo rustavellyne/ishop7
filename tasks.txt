@@ -30,13 +30,24 @@ Tasks
     3. Create config for connecting to db
     4. create DB for project
     5. create DB class for connecting to ReadBean
-8. Find and import html tamplate to project
+8. Find and import html template to project
 9. create tables for Shop (user video as reference)
     1. user table;
-    2. render Brands on main page (if needed create content in db); 
+    2. render Brands on main page (if needed to create content in db);
 
-
-
+10. Popular products
+    1. watch
+    2. get hists from products table.
+    3. render them on main page
+11. Widget Currencies <-- !DONE
+    1. Create Currency class
+    2. create template for it
+    3. render static data tp header
+    4. CurrencyController to handle currency changes
+    5. check Get parameter and set cookie in it
+    6. create main.js file for custom scripts on site
+    7. create redirect methods
+12.
 
 
 
