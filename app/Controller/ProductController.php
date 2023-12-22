@@ -2,6 +2,7 @@
 
 namespace IShop\Controller;
 
+use IShop\Framework\App;
 use IShop\Model\ProductModel;
 
 class ProductController extends BaseController
@@ -15,10 +16,13 @@ class ProductController extends BaseController
         $productModel = new ProductModel();
         $product = $productModel->getProduct($productId);
         $data = [
-            'product' => $product,
+            'product' => $product
         ];
         $meta = [
-
+            'head' => ['title' => $product['title']],
+            'meta' => [
+                ['name' => 'description', 'content' => 'some content of ISHop']
+            ]
         ];
 
         $this->setMeta($meta);

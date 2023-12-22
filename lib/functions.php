@@ -16,7 +16,10 @@ function redirect ($http = false) {
     exit;
 }
 
-function priceCurrency($price, $currency) {
+function priceCurrency($price, $currency = null) {
+    if (is_null($currency)) {
+        $currency = \IShop\Framework\App::$registry::getProperty('currency');
+    }
     return $currency['symbol_left'] . $price * $currency['value'] . $currency['symbol_right'];
 }
 

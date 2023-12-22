@@ -6,7 +6,7 @@ class Registry
 {
     use TSingleton;
 
-    private static $properties = [];
+    private static array $properties = [];
 
     public static function getProperty($key) 
     {
@@ -18,7 +18,7 @@ class Registry
         self::$properties[$key] = $value;
     } 
 
-    public static function getProperties()
+    public static function getProperties(): array
     {
         return self::$properties;
     }
