@@ -7,7 +7,7 @@ abstract class AbstractController
     protected array $route = [];
     protected $view;
     protected $model;
-    protected string $temlateName;
+    protected string $templateName;
     protected array $data = [];
     protected array $meta = [];
 

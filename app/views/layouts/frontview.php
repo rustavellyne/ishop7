@@ -8,6 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 <head>
 <title>Luxury Watches A Ecommerce Category Flat Bootstrap Resposive Website Template | Home :: w3layouts</title>
+<base href="/">
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!--Custom-Theme-files-->
 <!--theme-style-->

@@ -16,7 +16,6 @@ class IndexController extends BaseController
                 ['name' => 'description', 'content' => 'some content of ISHop']
             ]
         ];
-        $cache = \IShop\Framework\Cache::getInstance();
 
         $db = \IShop\Framework\Db::getInstance();
         $brands = $db->connection->find('brand', [], 'LIMIT 3');

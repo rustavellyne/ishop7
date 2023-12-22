@@ -28,7 +28,7 @@ class Db
 
     public function getAssoc($sql, $bindings = array())
     {
-        return R::getAssoc($sql, $bindings = array());
+        return R::getAssoc($sql, $bindings);
     }
 
     public function findOne($type, $sql = NULL, $bindings = array())
