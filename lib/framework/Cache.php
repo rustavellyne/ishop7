@@ -34,7 +34,8 @@ class Cache
         }
         $content = unserialize(file_get_contents($filename));
         if (time() > $content['end_time']) {
-            return unlink($filename);
+            unlink($filename);
+            return false;
         }
         return $content['data'];
     }

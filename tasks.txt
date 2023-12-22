@@ -47,11 +47,13 @@ Tasks
     5. check Get parameter and set cookie in it
     6. create main.js file for custom scripts on site
     7. create redirect methods
-12. Class Menu as Widget
-    1. get categories
-    2. cache categories,
-    3. create tree from categories
-    4. create html for categories
+12. Class Menu as Widget <-- !DONE
+    1. get categories +
+    2. cache categories +
+    3. create tree from categories +
+    4. create html for categories +
+13. Product Cart
+    1.
 
 
 

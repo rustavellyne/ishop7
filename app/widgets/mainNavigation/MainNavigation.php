@@ -8,11 +8,16 @@ class MainNavigation
 
     protected string $template = __DIR__ . '/template/main.php';
 
+    protected \IShop\Framework\Cache $cache;
+
+    protected string $cacheKey = 'IShop7_menu';
+
     public function __construct()
     {
         $db = \IShop\Framework\Db::getInstance();
         $categories = $db->connection->find('category');
         $this->categories = array_map(fn($item) => $item->getProperties(), $categories);
+        $this->cache = \IShop\Framework\Cache::getInstance();
     }
 
     /**
@@ -53,7 +58,7 @@ class MainNavigation
     {
         $result = [];
         foreach ($items as $item) {
-            if ((int)$item['parent_id'] === (int)$parentId) {
+            if ((int)$item['parent_id'] === $parentId) {
                 $children = $this->getTree($items, (int)$item['id']);
                 if (!empty($children)) {
                     $item['children'] = $children;
@@ -64,9 +69,23 @@ class MainNavigation
         return $result;
     }
 
+    /**
+     * @return array
+     */
+    protected function getTreeCache():array {
+        $cachedMenu = $this->cache->get($this->cacheKey);
+        if (!empty($cachedMenu)) {
+            return $cachedMenu;
+        }
+        $menu = $this->getTree($this->categories);
+        $this->cache->set($this->cacheKey, $menu);
+
+        return $menu;
+    }
+
     public function toHtml(): string
     {
-        $tree = $this->getTree($this->categories);
+        $tree = $this->getTreeCache();
         ob_start();
         include $this->template;
         return ob_get_clean();
