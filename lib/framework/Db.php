@@ -36,6 +36,13 @@ class Db
         return R::findOne($type, $sql, $bindings);
     }
 
+    public function getEntityIN($entity, $field, $values)
+    {
+        $slots = R::genSlots( $values );
+        $sql = "SELECT * FROM $entity WHERE $field IN ($slots)";
+        return R::getAssoc($sql, $values);
+    }
+
     public function __destruct()
     {
          R::close();

@@ -257,6 +257,41 @@
                     </div>
                 </div>
                 <?php endif ?>
+                <?php if (!empty($alreadyViewedProducts)): ?>
+                    <div class="latestproducts">
+                        <div class="product-one">
+                            <h3>Already Viewed Products</h3>
+                            <?php foreach($alreadyViewedProducts as $product):?>
+                                <div class="col-md-4 product-left p-left">
+                                    <div class="product-main simpleCart_shelfItem">
+                                        <a href="/product/view/<?= $product['alias'] ?>" class="mask">
+                                            <img class="img-responsive zoom-img" src="images/<?= $product['img'] ?>" alt="<?= $product['title'] ?>"/>
+                                        </a>
+                                        <div class="product-bottom">
+                                            <h3><?= $product['title'] ?></h3>
+                                            <p>Explore Now</p>
+                                            <h4>
+                                                <a class="item_add" href="cart/add?id=<?= $product['related_id'] ?>"><i></i></a>
+                                                <span class=" item_price"> <?= priceCurrency($product['price']) ?></span>
+                                            </h4>
+                                            <?php
+                                            if ($product['old_price']): ?>
+                                                <small>
+                                                    <del> <?= priceCurrency($product['old_price']); ?></del>
+                                                </small>
+                                            <?php
+                                            endif; ?>
+                                        </div>
+                                        <div class="srch">
+                                            <span>-50%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                <?php endif ?>
             </div>
             <div class="col-md-3 single-right">
                 <div class="w_sidebar">

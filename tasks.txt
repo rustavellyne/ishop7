@@ -59,7 +59,7 @@ Tasks
     4. Product View +
     5. Product Model +
     6. Breadcrumbs +
-    7. Related products
+    7. Related products +
     8. Cookie requested product
     9. Cookie watched products
     10. Gallery

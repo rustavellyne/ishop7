@@ -19,10 +19,13 @@ class ProductController extends BaseController
         $product = $productModel->getProduct($productAlias);
         $breadcrumbs = $breadcrumbsModel->getBreadcrumbs($product);
         $relatedProducts = $productModel->getRelatedProducts($product['product_id']);
+        $productModel->markAsViewed($product['product_id']);
+        $alreadyViewedProducts = $productModel->getAlreadyViewedProducts($product['product_id']);
         $data = [
             'product' => $product,
             'breadcrumbs' => $breadcrumbs,
-            'relatedProducts' => $relatedProducts
+            'relatedProducts' => $relatedProducts,
+            'alreadyViewedProducts' => $alreadyViewedProducts
         ];
         $meta = [
             'head' => ['title' => $product['title']],
