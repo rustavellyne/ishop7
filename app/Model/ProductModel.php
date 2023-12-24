@@ -20,7 +20,7 @@ class ProductModel extends AbstractModel
 
     public function getRelatedProducts(int $productId)
     {
-        $sql = '';
-        return $this->db->getAssoc($sql);
+        $sql = "SELECT * FROM product p JOIN related_product rp ON p.id = rp.related_id WHERE rp.product_id = ?";
+        return $this->db->getAssoc($sql, [$productId]);
     }
 }

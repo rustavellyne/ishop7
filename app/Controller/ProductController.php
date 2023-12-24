@@ -10,17 +10,19 @@ class ProductController extends BaseController
 {
     public function view()
     {
-        $productId = reset($this->route['parameters']);
-        if (empty($productId)) {
+        $productAlias = reset($this->route['parameters']);
+        if (empty($productAlias)) {
             throw new \Exception("Product Not Found: ", 404);
         }
         $productModel = new ProductModel();
         $breadcrumbsModel = new BreadcrumbsModel();
-        $product = $productModel->getProduct($productId);
+        $product = $productModel->getProduct($productAlias);
         $breadcrumbs = $breadcrumbsModel->getBreadcrumbs($product);
+        $relatedProducts = $productModel->getRelatedProducts($product['product_id']);
         $data = [
             'product' => $product,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumbs' => $breadcrumbs,
+            'relatedProducts' => $relatedProducts
         ];
         $meta = [
             'head' => ['title' => $product['title']],

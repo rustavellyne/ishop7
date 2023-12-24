@@ -13,7 +13,7 @@
                     <?php foreach ($breadcrumbs as $breadcrumb): ?>
                         <?php if ($breadcrumb['alias']): ?>
                             <li>
-                                <a href="<?= $breadcrumb['alias'] ?>">
+                                <a href="/category/view/<?= $breadcrumb['alias'] ?>">
                                     <?= $breadcrumb['title'] ?>
                                 </a>
                             </li>
@@ -222,56 +222,41 @@
                         </li>
                     </ul>
                 </div>
+                <?php if (!empty($relatedProducts)): ?>
                 <div class="latestproducts">
                     <div class="product-one">
+                        <h3>Related Products</h3>
+                        <?php foreach($relatedProducts as $product):?>
                         <div class="col-md-4 product-left p-left">
                             <div class="product-main simpleCart_shelfItem">
-                                <a href="single.html" class="mask"><img class="img-responsive zoom-img"
-                                                                        src="images/p-1.png" alt=""/></a>
+                                <a href="/product/view/<?= $product['alias'] ?>" class="mask">
+                                    <img class="img-responsive zoom-img" src="images/<?= $product['img'] ?>" alt="<?= $product['title'] ?>"/>
+                                </a>
                                 <div class="product-bottom">
-                                    <h3>Smart Watches</h3>
+                                    <h3><?= $product['title'] ?></h3>
                                     <p>Explore Now</p>
-                                    <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span>
+                                    <h4>
+                                        <a class="item_add" href="cart/add?id=<?= $product['related_id'] ?>"><i></i></a>
+                                        <span class=" item_price"> <?= priceCurrency($product['price']) ?></span>
                                     </h4>
+                                    <?php
+                                    if ($product['old_price']): ?>
+                                        <small>
+                                            <del> <?= priceCurrency($product['old_price']); ?></del>
+                                        </small>
+                                    <?php
+                                    endif; ?>
                                 </div>
                                 <div class="srch">
                                     <span>-50%</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 product-left p-left">
-                            <div class="product-main simpleCart_shelfItem">
-                                <a href="single.html" class="mask"><img class="img-responsive zoom-img"
-                                                                        src="images/p-2.png" alt=""/></a>
-                                <div class="product-bottom">
-                                    <h3>Smart Watches</h3>
-                                    <p>Explore Now</p>
-                                    <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span>
-                                    </h4>
-                                </div>
-                                <div class="srch">
-                                    <span>-50%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 product-left p-left">
-                            <div class="product-main simpleCart_shelfItem">
-                                <a href="single.html" class="mask"><img class="img-responsive zoom-img"
-                                                                        src="images/p-3.png" alt=""/></a>
-                                <div class="product-bottom">
-                                    <h3>Smart Watches</h3>
-                                    <p>Explore Now</p>
-                                    <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span>
-                                    </h4>
-                                </div>
-                                <div class="srch">
-                                    <span>-50%</span>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                <?php endif ?>
             </div>
             <div class="col-md-3 single-right">
                 <div class="w_sidebar">

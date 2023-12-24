@@ -36,7 +36,6 @@ class Db
         return R::findOne($type, $sql, $bindings);
     }
 
-
     public function __destruct()
     {
          R::close();
