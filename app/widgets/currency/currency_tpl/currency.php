@@ -8,3 +8,8 @@ foreach ($currencies as $code => $item): ?>
         </option>
     <?php endif; ?>
 <?php endforeach; ?>
+<script>
+    var currencyCourse = <?= $currency['value'] ?>;
+    var symbolLeft = '<?= $currency['symbol_left'] ?>';
+    var symbolRight = '<?= $currency['symbol_right'] ?>';
+</script>

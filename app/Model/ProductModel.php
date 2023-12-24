@@ -82,4 +82,10 @@ class ProductModel extends AbstractModel
         $payload = implode(';', $idsArray);
         setcookie('alreadyViewed', $payload, time() + 3600 * 12);
     }
+
+    public function getProductModifications(int $productId)
+    {
+        $sql = "SELECT * FROM modification WHERE product_id = ?";
+        return $this->db->getAssoc($sql, [$productId]);
+    }
 }

@@ -88,7 +88,7 @@
                                 <div class="clearfix"></div>
                             </div>
 
-                            <h5 class="item_price">
+                            <h5 class="item_price base-product-price" data-price="<?= priceCurrency($product['price'], null, false); ?>">
                                 <?= priceCurrency($product['price']) ?>
                             </h5>
                             <?php
@@ -103,6 +103,16 @@
                             </p>
                             <div class="available">
                                 <ul>
+                                    <?php if (!empty($modifications)): ?>
+                                        <li style="display: flex">Modifications
+                                            <select class="product-modification">
+                                                <option selected value="">Choose modification</option>
+                                            <?php foreach ($modifications as $id => $modification):?>
+                                                <option value="<?= $id ?>" data-price="<?= priceCurrency($modification['price'], null, false) ?>"><?= $modification['title'] ?></option>
+                                            <?php endforeach; ?>
+                                            </select>
+                                        </li>
+                                    <?php endif; ?>
                                     <li>Color
                                         <select>
                                             <option>Silver</option>
