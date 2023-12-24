@@ -3,6 +3,7 @@
 namespace IShop\Controller;
 
 use IShop\Framework\App;
+use IShop\Model\BreadcrumbsModel;
 use IShop\Model\ProductModel;
 
 class ProductController extends BaseController
@@ -14,9 +15,12 @@ class ProductController extends BaseController
             throw new \Exception("Product Not Found: ", 404);
         }
         $productModel = new ProductModel();
+        $breadcrumbsModel = new BreadcrumbsModel();
         $product = $productModel->getProduct($productId);
+        $breadcrumbs = $breadcrumbsModel->getBreadcrumbs($product);
         $data = [
-            'product' => $product
+            'product' => $product,
+            'breadcrumbs' => $breadcrumbs
         ];
         $meta = [
             'head' => ['title' => $product['title']],

@@ -9,9 +9,21 @@
         <div class="breadcrumbs-main">
             <ol class="breadcrumb">
                 <li><a href="/">Home</a></li>
-                <li class="active">
-                    <?= $product['title'] ?? 'Custom Watch' ?>
-                </li>
+                <?php if (!empty($breadcrumbs)): ?>
+                    <?php foreach ($breadcrumbs as $breadcrumb): ?>
+                        <?php if ($breadcrumb['alias']): ?>
+                            <li>
+                                <a href="<?= $breadcrumb['alias'] ?>">
+                                    <?= $breadcrumb['title'] ?>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="active">
+                                <?= $breadcrumb['title'] ?>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach ?>
+                <?php endif ?>
             </ol>
         </div>
     </div>

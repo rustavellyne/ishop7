@@ -33,7 +33,7 @@ class Db
 
     public function findOne($type, $sql = NULL, $bindings = array())
     {
-        return R::findOne($type, $sql = NULL, $bindings = array());
+        return R::findOne($type, $sql, $bindings);
     }
 
 

@@ -17,4 +17,10 @@ class ProductModel extends AbstractModel
         $result = (array)$this->db->getAssoc($sql, [':alias' => $alias]);
         return reset($result);
     }
+
+    public function getRelatedProducts(int $productId)
+    {
+        $sql = '';
+        return $this->db->getAssoc($sql);
+    }
 }
