@@ -21,11 +21,13 @@ class ProductController extends BaseController
         $relatedProducts = $productModel->getRelatedProducts($product['product_id']);
         $productModel->markAsViewed($product['product_id']);
         $alreadyViewedProducts = $productModel->getAlreadyViewedProducts($product['product_id']);
+        $gallery = $productModel->getProductGallery($product['product_id']);
         $data = [
             'product' => $product,
             'breadcrumbs' => $breadcrumbs,
             'relatedProducts' => $relatedProducts,
-            'alreadyViewedProducts' => $alreadyViewedProducts
+            'alreadyViewedProducts' => $alreadyViewedProducts,
+            'gallery' => $gallery
         ];
         $meta = [
             'head' => ['title' => $product['title']],

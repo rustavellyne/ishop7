@@ -36,20 +36,16 @@
             <div class="col-md-9 single-main-left">
                 <div class="sngl-top">
                     <div class="col-md-5 single-top-left">
+                        <?php if (!empty($gallery)): ?>
                         <div class="flexslider">
                             <ul class="slides">
-                                <li data-thumb="images/s-1.jpg">
-                                    <div class="thumb-image"><img src="images/s-1.jpg" data-imagezoom="true"
-                                                                  class="img-responsive" alt=""/></div>
+                                <?php foreach ($gallery as $item): ?>
+                                <li data-thumb="images/<?= $item['img']?>">
+                                    <div class="thumb-image">
+                                        <img src="images/<?= $item['img']?>" data-imagezoom="true" class="img-responsive" alt=""/>
+                                    </div>
                                 </li>
-                                <li data-thumb="images/s-2.jpg">
-                                    <div class="thumb-image"><img src="images/s-2.jpg" data-imagezoom="true"
-                                                                  class="img-responsive" alt=""/></div>
-                                </li>
-                                <li data-thumb="images/s-3.jpg">
-                                    <div class="thumb-image"><img src="images/s-3.jpg" data-imagezoom="true"
-                                                                  class="img-responsive" alt=""/></div>
-                                </li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                         <!-- FlexSlider -->
@@ -66,6 +62,11 @@
                             });
                           })
                         </script>
+                        <?php else: ?>
+                            <div style="display: flex; justify-content: center;">
+                                <img src="images/<?= $product['img']?>" alt="<?= $product['title'] ?>" style="width: 100%;"/>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <div class="col-md-7 single-top-right">
                         <div class="single-para simpleCart_shelfItem">
@@ -108,14 +109,17 @@
                                             <option>Black</option>
                                             <option>Dark Black</option>
                                             <option>Red</option>
-                                        </select></li>
-                                    <li class="size-in">Size<select>
+                                        </select>
+                                    </li>
+                                    <li class="size-in">Size
+                                        <select>
                                             <option>Large</option>
                                             <option>Medium</option>
                                             <option>small</option>
                                             <option>Large</option>
                                             <option>small</option>
-                                        </select></li>
+                                        </select>
+                                    </li>
                                     <div class="clearfix"></div>
                                 </ul>
                             </div>

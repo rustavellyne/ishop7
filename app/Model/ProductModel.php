@@ -2,6 +2,8 @@
 
 namespace IShop\Model;
 
+use RedBeanPHP\Cursor;
+
 class ProductModel extends AbstractModel
 {
     /**
@@ -38,6 +40,7 @@ class ProductModel extends AbstractModel
     }
 
     /**
+     * @param $currentProductId
      * @return array
      */
     public function getAlreadyViewedProducts($currentProductId): array
@@ -45,6 +48,16 @@ class ProductModel extends AbstractModel
         $ids = array_diff($this->getAlreadyViewedIds(), [$currentProductId]);
         $ids = array_slice($ids, -3);
         return $this->getProducts($ids);
+    }
+
+    /**
+     * @param int $productId
+     * @return int|Cursor|string[]|NULL
+     */
+    public function getProductGallery(int $productId)
+    {
+        $sql = "SELECT * FROM gallery  WHERE product_id = ?";
+        return $this->db->getAssoc($sql, [$productId]);
     }
 
     /**
