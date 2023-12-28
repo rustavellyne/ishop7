@@ -52,7 +52,7 @@ Tasks
     2. cache categories +
     3. create tree from categories +
     4. create html for categories +
-13. Product Cart
+13. Product Page
     1. Template for Product +
     2. Routes for products +
     3. Product Controller +
@@ -60,14 +60,19 @@ Tasks
     5. Product Model +
     6. Breadcrumbs +
     7. Related products +
-    8. Cookie requested product
-    9. Cookie watched products
-    10. Gallery
-    11. Swatches
-    12. set MEta
-    13. make 404
-    14. Tabs accordion
-    15.
+    8. Cookie requested product +
+    9. Cookie watched products +
+    10. Gallery +
+    11. Swatches  -
+    12. set MEta -
+    13. make 404 -
+    14. Tabs accordion +
+14. Product Cart
+    1. Cart Add Controller
+    2. JS handler
+    3. Handle modifications
+    4. Cart Model
+    5.
 
 
 
