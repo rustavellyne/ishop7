@@ -3,6 +3,7 @@
 namespace IShop\Controller;
 
 use IShop\Framework\App;
+use IShop\Model\CartModel;
 use IShop\widgets\currency\Currency;
 
 class BaseController extends \IShop\Framework\AbstractController
@@ -16,6 +17,7 @@ class BaseController extends \IShop\Framework\AbstractController
         $currency = Currency::getCurrency($currencies);
         App::$registry::setProperty('currencies', $currencies);
         App::$registry::setProperty('currency', $currency);
+        $this->setMeta(['general' => ['cart' => (new CartModel())->getCart()]]);
     }
 }
 

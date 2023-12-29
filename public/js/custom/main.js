@@ -18,8 +18,20 @@ $('#cart-add-product').on('submit', function (e) {
           /**
            * cart handle
            */
+          console.log(data)
+          $('.simpleCart_total').text(symbolLeft + data.totals_currency + symbolRight)
     },
     'json'
+    );
+});
+
+$('.simpleCart_empty').on('click', function (e) {
+    e.preventDefault();
+    $.get('cart/deleteCart', function(data) {
+          console.log(data)
+        $('.simpleCart_total').text(symbolLeft + '0.00' + symbolRight)
+      },
+      'json'
     );
 });
 

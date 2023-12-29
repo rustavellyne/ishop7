@@ -28,6 +28,7 @@ class View
             'content' => $templateContent,
             'head' => $meta['head'],
             'meta' => $meta['meta'],
+            'general' => $meta['general']
         ];
         $fullPage = $this->loadViewFile($layoutPath, $pageData);
         return $fullPage; 

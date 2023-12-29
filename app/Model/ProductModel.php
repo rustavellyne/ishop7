@@ -60,6 +60,9 @@ class ProductModel extends AbstractModel
     {
         $ids = array_diff($this->getAlreadyViewedIds(), [$currentProductId]);
         $ids = array_slice($ids, -3);
+        if (empty($ids)) {
+            return [];
+        }
         return $this->getProducts($ids);
     }
 

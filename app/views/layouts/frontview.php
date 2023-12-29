@@ -45,15 +45,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1">
-						<a href="checkout.html" data-toggle="modal" data-target="#cartModal" class="cart-modal-trigger">
-                             <div class="total">
+                        <div data-toggle="modal" data-target="#cartModal" class="cart-modal-trigger">
+                            <a href="checkout.html">
+                                <div class="total">
                                 <span class="simpleCart_total">
-                                    $0.00
+                                    <?php echo moneySymbol($general['cart']['totals_currency'] ?? '0.00') ?>
                                 </span>
-                             </div>
-                            <img src="images/cart-1.png" alt="" />
-						</a>
-						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                                </div>
+                                <img src="images/cart-1.png" alt="" />
+                            </a>
+                        </div>
+						<p><a href="cart/deleteCart" class="simpleCart_empty">Empty Cart</a></p>
 						<div class="clearfix"> </div>
 					</div>
 				</div>

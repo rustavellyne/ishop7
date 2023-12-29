@@ -15,13 +15,18 @@ function redirect ($http = false) {
     header("Location: $redirect");
     exit;
 }
+function moneySymbol(float $money) {
+    $currency = \IShop\Framework\App::$registry::getProperty('currency');
+    return $currency['symbol_left'] . number_format($money, 2, '.', '') . $currency['symbol_right'];
+}
 
-function priceCurrency($price, $currency = null, $symbols = true) {
+function priceCurrency(float $price, $currency = null, $symbols = true) {
     if (is_null($currency)) {
         $currency = \IShop\Framework\App::$registry::getProperty('currency');
     }
+    $money = number_format($price * $currency['value'], 2, '.', '');
     if ($symbols) {
-        return $currency['symbol_left'] . $price * $currency['value'] . $currency['symbol_right'];
+        return $currency['symbol_left'] . $money . $currency['symbol_right'];
     }
     return $price * $currency['value'];
 }

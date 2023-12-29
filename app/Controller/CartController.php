@@ -9,6 +9,14 @@ use IShop\Model\ProductModel;
 
 class CartController extends BaseController
 {
+    private CartModel $cart;
+
+    public function __construct(array $route)
+    {
+        parent::__construct($route);
+        $this->cart = new CartModel();
+    }
+
     public function add()
     {
         $parameters = $this->getParameters('GET');
@@ -28,10 +36,20 @@ class CartController extends BaseController
             // wrong message send to user
             redirect();
         }
-        $cart = new CartModel();
-        $cart->addProduct($product, $qty);
+        $this->cart->addProduct($product, $qty);
         if ($this->isAjax()) {
-            echo json_encode($cart->getCart());
+            echo json_encode($this->cart->getCart());
+        } else {
+            // message success add
+            redirect();
+        }
+    }
+
+    public function deleteCart()
+    {
+        $this->cart->deleteCart();
+        if ($this->isAjax()) {
+            echo json_encode(['message' => 'cart was removed']);
         } else {
             // message success add
             redirect();

@@ -28,7 +28,7 @@ abstract class AbstractController
     
     public function setData(array $data)
     {
-        $this->data = $data;
+        $this->data = array_merge($this->data, $data);
     }
 
     public function getData(): array
@@ -38,7 +38,7 @@ abstract class AbstractController
 
     public function setMeta(array $meta)
     {
-        $this->meta = $meta;
+        $this->meta = array_merge($this->meta, $meta);
     }
 
     public function getMeta(): array
