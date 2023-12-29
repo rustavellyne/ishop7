@@ -11,3 +11,19 @@ $('.product-modification').change(function () {
     let updatePrice = price ? price : basePrice;
     $(basePriceEl).text(symbolLeft + updatePrice + symbolRight);
 });
+
+$('#cart-add-product').on('submit', function (e) {
+    e.preventDefault();
+    $.get('cart/add', $(this).serialize(), function(data) {
+          /**
+           * cart handle
+           */
+    },
+    'json'
+    );
+});
+
+$('.cart-modal-trigger').on('click', function (e) {
+    e.preventDefault();
+    console.log('show modal');
+})

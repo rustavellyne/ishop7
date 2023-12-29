@@ -33,6 +33,7 @@ class App
     
     public function launch()
     {
+        lazy_session_start();
         $this->router->dispatch($this->request);
     }
 

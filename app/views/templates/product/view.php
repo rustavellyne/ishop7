@@ -1,8 +1,5 @@
 <?php
 /** @var array $product */ ?>
-<pre>
-<?= print_r($product, true) ?>
-</pre>
 <!--start-breadcrumbs-->
 <div class="breadcrumbs">
     <div class="container">
@@ -101,50 +98,53 @@
                             <p>
                                 <?= $product['content'] ?? 'Custom Watch Description' ?>
                             </p>
-                            <div class="available">
-                                <ul>
-                                    <?php if (!empty($modifications)): ?>
-                                        <li style="display: flex">Modifications
-                                            <select class="product-modification">
-                                                <option selected value="">Choose modification</option>
-                                            <?php foreach ($modifications as $id => $modification):?>
-                                                <option value="<?= $id ?>" data-price="<?= priceCurrency($modification['price'], null, false) ?>"><?= $modification['title'] ?></option>
-                                            <?php endforeach; ?>
+                            <form action="cart/add" method="GET" id="cart-add-product">
+                                <div class="available">
+                                    <ul>
+                                        <?php if (!empty($modifications)): ?>
+                                            <li style="display: flex">Modifications
+                                                <select class="product-modification" name="modification">
+                                                    <option selected value="">Choose modification</option>
+                                                <?php foreach ($modifications as $id => $modification):?>
+                                                    <option value="<?= $id ?>" data-price="<?= priceCurrency($modification['price'], null, false) ?>"><?= $modification['title'] ?></option>
+                                                <?php endforeach; ?>
+                                                </select>
+                                            </li>
+                                        <?php endif; ?>
+                                        <li>Color
+                                            <select name="attribute_material">
+                                                <option>Silver</option>
+                                                <option>Black</option>
+                                                <option>Dark Black</option>
+                                                <option>Red</option>
                                             </select>
                                         </li>
-                                    <?php endif; ?>
-                                    <li>Color
-                                        <select>
-                                            <option>Silver</option>
-                                            <option>Black</option>
-                                            <option>Dark Black</option>
-                                            <option>Red</option>
-                                        </select>
-                                    </li>
-                                    <li class="size-in">Size
-                                        <select>
-                                            <option>Large</option>
-                                            <option>Medium</option>
-                                            <option>small</option>
-                                            <option>Large</option>
-                                            <option>small</option>
-                                        </select>
-                                    </li>
-                                    <div class="clearfix"></div>
+                                        <li class="size-in">Size
+                                            <select name="attribute_size">
+                                                <option>Large</option>
+                                                <option>Medium</option>
+                                                <option>small</option>
+                                                <option>Large</option>
+                                                <option>small</option>
+                                            </select>
+                                        </li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                </div>
+                                <ul class="tag-men">
+                                    <li><span>Category</span>
+                                        <span>: <a href="<?= '/category/view/' . $product['category_alias'] ?>"><?= $product['category_name'] ?></a></span></li>
                                 </ul>
-                            </div>
-                            <ul class="tag-men">
-                                <li><span>Category</span>
-                                    <span>: <a href="<?= '/category/view/' . $product['category_alias'] ?>"><?= $product['category_name'] ?></a></span></li>
-                            </ul>
-                            <div style="margin-top: 15px">
-                                <span class="quantity">
-                                    <label>
-                                        <input type="number" name="quantity"  size="4" value="1" min="1" style="width: 100px; height: 40px"/>
-                                    </label>
-                                </span>
-                                <a href="cart/add?id=<?= $product['product_id'] ?>" class="add-cart item_add">ADD TO CART</a>
-                            </div>
+                                <div style="margin-top: 15px">
+                                    <span class="quantity">
+                                        <label>
+                                            <input type="number" name="quantity"  size="4" value="1" min="1" style="width: 100px; height: 40px"/>
+                                        </label>
+                                    </span>
+                                    <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+                                    <button type="submit" class="add-cart item_add">ADD TO CART</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="clearfix"></div>

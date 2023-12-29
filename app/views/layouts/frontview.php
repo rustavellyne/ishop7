@@ -9,7 +9,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
 <title><?= $head['title'] ?? '' ?></title>
 <base href="/">
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!--Custom-Theme-files-->
 <!--theme-style-->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
@@ -45,10 +45,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1">
-						<a href="checkout.html">
-							 <div class="total">
-								<span class="simpleCart_total"></span></div>
-								<img src="images/cart-1.png" alt="" />
+						<a href="checkout.html" data-toggle="modal" data-target="#cartModal" class="cart-modal-trigger">
+                             <div class="total">
+                                <span class="simpleCart_total">
+                                    $0.00
+                                </span>
+                             </div>
+                            <img src="images/cart-1.png" alt="" />
 						</a>
 						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 						<div class="clearfix"> </div>
@@ -153,10 +156,114 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	<!--footer-end-->
-<!-- SCRIPTS PLACE START-->
 
+    <!-- Modals-->
+    <div class="cart-modal modal fade bs-example-modal-lg" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="row modal-dialog modal-lg" style="width: 800px">
+            <div class="col-sm-12 col-md-12 modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myLargeModalLabel">Yout cart</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button type="button" class="btn btn-primary btn-sm btn-block">
+                                                <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h4 class="product-name"><strong>Product name</strong></h4><h4><small>Product description</small></h4>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="col-xs-6 text-right">
+                                            <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control input-sm" value="1">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button type="button" class="btn btn-link btn-xs">
+                                                <span class="glyphicon glyphicon-trash"> </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h4 class="product-name"><strong>Product name</strong></h4><h4><small>Product description</small></h4>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="col-xs-6 text-right">
+                                            <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control input-sm" value="1">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button type="button" class="btn btn-link btn-xs">
+                                                <span class="glyphicon glyphicon-trash"> </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="text-center">
+                                        <div class="col-xs-9">
+                                            <h6 class="text-right">Added items?</h6>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <button type="button" class="btn btn-default btn-sm btn-block">
+                                                Update cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row text-center">
+                                    <div class="col-xs-9">
+                                        <h4 class="text-right">Total <strong>$50.00</strong></h4>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <button type="button" class="btn btn-success btn-block">
+                                            Checkout
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modals-->
+
+<!-- SCRIPTS PLACE START-->
 <!--jQuery(necessary for Bootstrap's JavaScript plugins)-->
 <script src="js/jquery-1.11.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="application/x-javascript"> 
 	addEventListener("load", function() { 
 		setTimeout(hideURLbar, 0); 
@@ -166,7 +273,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	} 
 </script>
 <!--start-menu-->
-<script src="js/simpleCart.min.js"></script>
+<!--<script src="js/simpleCart.min.js"></script>-->
 <script type="text/javascript" src="js/memenu.js"></script>
 <script>
 	$(document).ready(function(){

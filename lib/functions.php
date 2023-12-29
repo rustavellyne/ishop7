@@ -26,3 +26,9 @@ function priceCurrency($price, $currency = null, $symbols = true) {
     return $price * $currency['value'];
 }
 
+function lazy_session_start() {
+    if (!isset($_SESSION) || !is_array($_SESSION)) {
+        session_start();
+    }
+}
+

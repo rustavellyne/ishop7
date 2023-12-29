@@ -45,5 +45,22 @@ abstract class AbstractController
     {
         return $this->meta;
     }
+
+    public function getParameters($key = null)
+    {
+        if (is_null($key)) {
+            return $this->route['parameters'];
+        }
+
+        return $this->route['parameters'][$key] ?? [];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAjax(): bool
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    }
 }
 

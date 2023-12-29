@@ -68,7 +68,7 @@ Tasks
     13. make 404 -
     14. Tabs accordion +
 14. Product Cart
-    1. Cart Add Controller
+    1. Cart Add Controller +
     2. JS handler
     3. Handle modifications
     4. Cart Model

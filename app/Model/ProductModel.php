@@ -21,6 +21,19 @@ class ProductModel extends AbstractModel
     }
 
     /**
+     * @param int $id
+     * @return array
+     */
+    public function getProductById(int $id): array
+    {
+        $sql = "SELECT p.*, p.id as product_id
+            FROM product p 
+            WHERE p.id = :id AND p.status = '1' LIMIT 1";
+        $result = (array)$this->db->getAssoc($sql, [':id' => $id]);
+        return array_shift($result);
+    }
+
+    /**
      * @param int $productId
      * @return int|\RedBeanPHP\Cursor|string[]|NULL
      */
@@ -83,6 +96,10 @@ class ProductModel extends AbstractModel
         setcookie('alreadyViewed', $payload, time() + 3600 * 12);
     }
 
+    /**
+     * @param int $productId
+     * @return int|Cursor|string[]|NULL
+     */
     public function getProductModifications(int $productId)
     {
         $sql = "SELECT * FROM modification WHERE product_id = ?";
