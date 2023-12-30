@@ -54,6 +54,11 @@ class CartModel extends AbstractModel
         $this->items = [];
     }
 
+    public function deleteCartItem(int $productId)
+    {
+        unset($this->items[$productId]);
+    }
+
     /**
      * @return array
      */

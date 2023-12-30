@@ -17,6 +17,11 @@ class CartController extends BaseController
         $this->cart = new CartModel();
     }
 
+    public function view()
+    {
+        echo json_encode($this->cart->getCart());
+    }
+
     public function add()
     {
         $parameters = $this->getParameters('GET');
@@ -50,6 +55,19 @@ class CartController extends BaseController
         $this->cart->deleteCart();
         if ($this->isAjax()) {
             echo json_encode(['message' => 'cart was removed']);
+        } else {
+            // message success add
+            redirect();
+        }
+    }
+
+    public function deleteCartItem()
+    {
+        $params = $this->getParameters('GET');
+        $productId = $params['productId'];
+        $this->cart->deleteCartItem($productId);
+        if ($this->isAjax()) {
+            echo json_encode($this->cart->getCart());
         } else {
             // message success add
             redirect();
