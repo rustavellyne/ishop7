@@ -12,6 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!--Custom-Theme-files-->
 <!--theme-style-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tarekraafat-autocomplete.js/10.2.7/css/autoComplete.min.css">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,8 +82,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="col-md-3 header-right"> 
 				<div class="search-bar">
-					<input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-					<input type="submit" value="">
+					<input type="text" dir="ltr" id="autoComplete" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1" placeholder="Search">
+					<input type="submit" value="" class="search-btn">
 				</div>
 			</div>
 			<div class="clearfix"> </div>
@@ -305,7 +306,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });    
 </script>
 <!--End-slider-script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tarekraafat-autocomplete.js/10.2.7/autoComplete.min.js"></script>
 <script src="js/custom/main.js" defer></script>
+
 <!-- SCRIPTS PLACE END -->
 </body>
 </html>

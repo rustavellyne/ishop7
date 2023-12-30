@@ -72,7 +72,8 @@ Tasks
     2. JS handler
     3. Handle modifications
     4. Cart Model
-    5.
+15. Search
+    1.
 
 
 

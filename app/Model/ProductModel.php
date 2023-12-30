@@ -20,6 +20,12 @@ class ProductModel extends AbstractModel
         return reset($result);
     }
 
+    public function searchProducts($query, $fields = '*'): array
+    {
+        $sql = "SELECT $fields FROM product WHERE title LIKE ?";
+        return (array)$this->db->getAssoc($sql, ["%$query%"]);
+    }
+
     /**
      * @param int $id
      * @return array

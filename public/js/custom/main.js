@@ -128,3 +128,45 @@ $('#cartModal').on('click', '.remove-item', function () {
     cart.render()
   }, 'json');
 })
+
+const goToSearchPage = function (query) {
+  if (!query.length) return;
+  window.location = `/search/page?q=${query}`
+}
+
+const autoCompleteJS = new autoComplete({
+  placeHolder: "Search for Food...",
+  data: {
+    src: async (query) => {
+      try {
+        // Fetch Data from external Source
+        const source = await fetch(`search?q=${query}`);
+        // Data should be an array of `Objects` or `Strings`
+        const data = await source.json();
+
+        return data;
+      } catch (error) {
+        return error;
+      }
+    },
+  },
+  resultItem: {
+    highlight: true,
+  },
+  events: {
+    input: {
+      selection: (event) => {
+        const selection = event.detail.selection.value;
+        console.log({ selection })
+        goToSearchPage(selection)
+      },
+      keydown: (event) => {
+        if (event.keyCode === 13) {
+          goToSearchPage(event.target.value)
+        }
+      }
+    }
+  }
+});
+
+$('.search-btn').on('click', () => goToSearchPage($('#autoComplete').val()))
