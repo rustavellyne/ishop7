@@ -73,10 +73,13 @@ Tasks
     3. Handle modifications +
     4. Cart Model +
 15. Search <- DONE!
-16. Category Page
+16. Category Page <- DONE!
     1. Categories tree by id
     2. render products in parents IDS
-
+    3. @! Breadcrumbs (use exsit class)
+17. Pagination
+    1. get Config for pagination
+    2.
 
 
 

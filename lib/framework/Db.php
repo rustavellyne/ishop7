@@ -36,10 +36,23 @@ class Db
         return R::findOne($type, $sql, $bindings);
     }
 
-    public function getEntityIN($entity, $field, $values)
+    /**
+     * @param string $entity
+     * @param string $sql
+     * @return int
+     */
+    public function countEntity(string $entity, string $sql): int
+    {
+        return R::count($entity, $sql);
+    }
+
+    public function getEntityIN($entity, $field, $values, $page = [])
     {
         $slots = R::genSlots( $values );
         $sql = "SELECT * FROM $entity WHERE $field IN ($slots)";
+        if (!empty($page)) {
+            $sql .= "LIMIT {$page['page']}, {$page['perPage']}";
+        }
         return R::getAssoc($sql, $values);
     }
 

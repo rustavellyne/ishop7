@@ -5,6 +5,7 @@ namespace IShop\Controller;
 use IShop\Framework\App;
 use IShop\Model\BreadcrumbsModel;
 use IShop\Model\CategoryModel;
+use IShop\Model\PaginationModel;
 use IShop\Model\ProductModel;
 
 class CategoryController extends BaseController
@@ -12,6 +13,7 @@ class CategoryController extends BaseController
     public function view()
     {
         $categoryAlias = reset($this->route['parameters']);
+        $parameters = $this->getParameters('GET');
         if (empty($categoryAlias)) {
             throw new \Exception("Category Not Found: ", 404);
         }
@@ -19,8 +21,12 @@ class CategoryController extends BaseController
         $productModel = new ProductModel();
         $categoryCurrent = $catModel->getCategoryByAlias($categoryAlias);
         $ids = $catModel->getChildCategoryIds($categoryAlias);
-        $products = $productModel->getProducts($ids);
-        $this->setData(compact('categoryCurrent', 'products'));
+        $pageNumber = $parameters['page'] ?? 1;
+        $perPage = $parameters['perpage'] ?? 3;
+        $totalProducts = $productModel->countProducts($ids);
+        $pagination = (new PaginationModel($totalProducts, $pageNumber, $perPage))->getPagination();
+        $products = $productModel->getProducts($ids, ['page' => 1, 'perPage' => $perPage]);
+        $this->setData(compact('categoryCurrent', 'products', 'pagination'));
         $this->setMeta([
             'head' => ['title' => $categoryCurrent->title],
             'meta' => [
