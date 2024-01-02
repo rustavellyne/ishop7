@@ -52,7 +52,7 @@ Tasks
     2. cache categories +
     3. create tree from categories +
     4. create html for categories +
-13. Product Page
+13. Product Page <- DONE!
     1. Template for Product +
     2. Routes for products +
     3. Product Controller +
@@ -67,13 +67,16 @@ Tasks
     12. set MEta -
     13. make 404 -
     14. Tabs accordion +
-14. Product Cart
+14. Product Cart <- DONE!
     1. Cart Add Controller +
-    2. JS handler
-    3. Handle modifications
-    4. Cart Model
-15. Search
-    1.
+    2. JS handler +
+    3. Handle modifications +
+    4. Cart Model +
+15. Search <- DONE!
+16. Category Page
+    1. Categories tree by id
+    2. render products in parents IDS
+
 
 
 

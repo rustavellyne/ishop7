@@ -2,11 +2,11 @@
 
 <ul class="memenu skyblue">
     <li class="grid active">
-        <a href="index.html">Home</a>
+        <a href="/">Home</a>
     </li>
     <?php foreach ($tree as $item): ?>
     <li class="grid">
-        <a href="<?= $item['alias'] ?>">
+        <a href="/category/view/<?= $item['alias'] ?>">
             <?= $item['title'] ?>
         </a>
         <?php if (isset($item['children'])): ?>
