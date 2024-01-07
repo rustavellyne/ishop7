@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitf2fe228b460b57199fc93519b3e61216
 {
     public static $prefixLengthsPsr4 = array (
+        'V' => 
+        array (
+            'Valitron\\' => 9,
+        ),
         'R' => 
         array (
             'RedBeanPHP\\' => 11,
@@ -19,6 +23,10 @@ class ComposerStaticInitf2fe228b460b57199fc93519b3e61216
     );
 
     public static $prefixDirsPsr4 = array (
+        'Valitron\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/valitron/src/Valitron',
+        ),
         'RedBeanPHP\\' => 
         array (
             0 => __DIR__ . '/..' . '/gabordemooij/redbean/RedBeanPHP',

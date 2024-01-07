@@ -62,5 +62,21 @@ abstract class AbstractController
     {
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     }
+
+    /**
+     * @return bool
+     */
+    public function isPost(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGet(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'GET';
+    }
 }
 

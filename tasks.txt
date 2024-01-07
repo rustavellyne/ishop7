@@ -79,7 +79,11 @@ Tasks
     3. @! Breadcrumbs (use exsit class)
 17. Pagination
     1. get Config for pagination
-    2.
+18. Registration
+    1. Registration dropdown
+    2. User Controller
+    3. Validation Class
+    4. Bootstrap Validator, Valitron
 
 
 

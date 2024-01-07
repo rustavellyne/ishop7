@@ -41,6 +41,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<option value="3">German</option>
 							</select>
 						</div>
+                        <div class="dropdowntest" style="position: relative; display: inline-block">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="userActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <?php if (!empty($user)): ?>
+                                    My Name
+                                <?php else: ?>
+                                    My account
+                                <?php endif; ?>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userActions">
+                                <?php if (!empty($user)): ?>
+                                    <li><a href="/user/account">My account</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="/user/logout">Logout</a></li>
+                                <?php else: ?>
+                                    <li><a href="/user/register">Register</a></li>
+                                    <li><a href="/user/login">Login</a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
 						<div class="clearfix"></div>
 					</div>
 				</div>
