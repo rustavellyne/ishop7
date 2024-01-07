@@ -43,15 +43,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
                         <div class="dropdowntest" style="position: relative; display: inline-block">
                             <button class="btn btn-default dropdown-toggle" type="button" id="userActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <?php if (!empty($user)): ?>
-                                    My Name
+                                <?php if (!empty($_SESSION['user'])): ?>
+                                    <?= $_SESSION['user']['name'] ?>
                                 <?php else: ?>
                                     My account
                                 <?php endif; ?>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="userActions">
-                                <?php if (!empty($user)): ?>
+                                <?php if (!empty($_SESSION['user'])): ?>
                                     <li><a href="/user/account">My account</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="/user/logout">Logout</a></li>

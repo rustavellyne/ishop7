@@ -50,6 +50,16 @@ class UserModel extends AbstractModel
     /**
      * @param $field
      * @param $value
+     * @return \RedBeanPHP\OODBBean|NULL
+     */
+    public function getUserByField($field, $value): ?\RedBeanPHP\OODBBean
+    {
+        return $this->db->findOne('user', "$field = ? AND role = 'user'", [$value]);
+    }
+
+    /**
+     * @param $field
+     * @param $value
      * @return bool
      */
     public function isUnique($field, $value): bool
