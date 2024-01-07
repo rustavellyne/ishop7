@@ -111,7 +111,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
     <!--bottom-header-->
-
+    <?php foreach(\IShop\Service\FlashMessage::getMessages() as $message): ?>
+    <div class="container">
+        <div class="alert alert-<?= $message['type'] ?>" role="alert"><?= $message['message'] ?></div>
+    </div>
+    <?php endforeach; ?>
     <!-- content start -->
     <?= $content ?? '' ?>
     <!-- content end -->

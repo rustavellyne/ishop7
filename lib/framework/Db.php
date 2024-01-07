@@ -56,6 +56,15 @@ class Db
         return R::getAssoc($sql, $values);
     }
 
+    public function save($tableName, $data)
+    {
+        $table = R::dispense($tableName);
+        foreach ($data as $key => $value) {
+            $table->$key = $value;
+        }
+        return R::store($table);
+    }
+
     public function __destruct()
     {
          R::close();
