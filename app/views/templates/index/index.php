@@ -64,7 +64,7 @@ if (!empty($popularProjects)) : ?>
                                     <h3><?= $product->title ?></h3>
                                     <p>Explore Now</p>
                                     <h4>
-                                        <a class="item_add add-to-cart-link" href="cart/add?id=<?= $product->id ?>">
+                                        <a class="item_add add-to-cart-link" href="cart/add?product_id=<?= $product->id ?>">
                                             <i></i>
                                         </a>
                                         <span class=" item_price"><?= /** @var array $currency */

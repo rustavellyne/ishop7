@@ -77,13 +77,17 @@ Tasks
     1. Categories tree by id
     2. render products in parents IDS
     3. @! Breadcrumbs (use exsit class)
-17. Pagination
+17. Pagination <- DONE!
     1. get Config for pagination
-18. Registration
+18. Registration <- DONE!
     1. Registration dropdown
     2. User Controller
     3. Validation Class
     4. Bootstrap Validator, Valitron
+19. Place Order
+    1. Page of cart
+    2. form of not login user
+    3.
 
 
 

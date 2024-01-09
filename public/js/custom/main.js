@@ -60,9 +60,9 @@ const Cart = function(el, data) {
                 <h4 class="text-right">Total <strong>${ symbolLeft + totals + symbolRight }</strong></h4>
             </div>
             <div class="col-xs-3">
-                <button type="button" class="btn btn-success btn-block">
+                <a href="cart/checkout" class="btn btn-success btn-block">
                     Checkout
-                </button>
+                </a>
             </div>
         </div>
     </div>`

@@ -33,7 +33,7 @@ if (!empty($products)) : ?>
                                     <h3><?= $product['title'] ?></h3>
                                     <p>Explore Now</p>
                                     <h4>
-                                        <a class="item_add add-to-cart-link" href="cart/add?id=<?= $id ?>">
+                                        <a class="item_add add-to-cart-link" href="cart/add?product_id=<?= $id ?>">
                                             <i></i>
                                         </a>
                                         <span class=" item_price">

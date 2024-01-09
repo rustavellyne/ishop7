@@ -56,6 +56,25 @@ class Db
         return R::getAssoc($sql, $values);
     }
 
+    /**
+     * @param $tableName
+     * @param $data
+     * @return int[]
+     */
+    public function multipleSave($tableName, $data): array
+    {
+        if (count($data) === 1) {
+            return (array) $this->save($tableName, $data[0]);
+        }
+        $beans = R::dispense($tableName, count($data));
+        foreach ($data as $index => $row) {
+            foreach ($row as $key => $value) {
+                $beans[$index]->$key = $value;
+            }
+        }
+        return R::storeAll($beans);
+    }
+
     public function save($tableName, $data)
     {
         $table = R::dispense($tableName);
