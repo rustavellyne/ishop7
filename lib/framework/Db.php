@@ -26,6 +26,11 @@ class Db
         $this->connection = R::getRedBean();
     }
 
+    public function getAll($sql, $bindings = array())
+    {
+        return R::getAll($sql, $bindings);
+    }
+
     public function getAssoc($sql, $bindings = array())
     {
         return R::getAssoc($sql, $bindings);
