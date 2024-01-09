@@ -39,7 +39,8 @@ class CategoryFilter
     /**
      * @return array
      */
-    protected function getFiltersCache():array {
+    protected function getFiltersCache(): array
+    {
         $cached = $this->cache->get($this->cacheKey);
         if (!empty($cached)) {
             return $cached;
@@ -53,6 +54,7 @@ class CategoryFilter
     public function toHtml(): string
     {
         $filters = $this->getFiltersCache();
+        $checked = $_GET['filters'] ?? [];
         ob_start();
         include $this->template;
         return ob_get_clean();

@@ -19,9 +19,9 @@
 <div class="single category">
     <div class="container">
         <h2> <?=$categoryCurrent->title ?></h2>
-        <?php if (!empty($products)): ?>
         <div class="product-top">
             <div class="product-one col-md-9">
+                <?php if (!empty($products)): ?>
                 <?php
                 foreach ($products as $id => $product): ?>
                     <div class="col-md-4 product-left">
@@ -55,6 +55,9 @@
                     </div>
                 <?php
                 endforeach; ?>
+                <?php else: ?>
+                    <p> No products in current category</p>
+                <?php endif; ?>
                 <div class="clearfix"></div>
             </div>
             <div class="col-md-3 single-right">
@@ -87,8 +90,5 @@
                 </nav>
             <?php endif; ?>
         </div>
-        <?php else: ?>
-        <p> No products in current category</p>
-        <?php endif; ?>
     </div>
 </div>

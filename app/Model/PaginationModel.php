@@ -54,7 +54,7 @@ class PaginationModel
     {
         $numbers = [];
         $start  = $this->currentPage - ($this->currentPage % $this->linksQty) ?: 1;
-        $finish = $start + $this->linksQty;
+        $finish = min($start + $this->linksQty, $this->pages);
         for ($i = $start; $i < $finish; $i++) {
             $numbers[] = [
                 'state' => $this->currentPage === $i ? 'active' : '',

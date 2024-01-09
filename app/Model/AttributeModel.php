@@ -10,4 +10,12 @@ class AttributeModel extends AbstractModel
         return $this->db->getAll($sql);
     }
 
+    public function getCountGroups($attrId): int
+    {
+        $result = $this->db->getAll("SELECT * FROM attributevalue WHERE id IN ($attrId)");
+        $column = array_column($result, 'attr_group_id');
+        $uniq = array_unique($column);
+        return count($uniq);
+    }
+
 }

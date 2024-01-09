@@ -51,12 +51,13 @@ class Db
         return R::count($entity, $sql);
     }
 
-    public function getEntityIN($entity, $field, $values, $page = [])
+    public function getEntityIN($entity, $field, $values, $sql = '', $page = [])
     {
         $slots = R::genSlots( $values );
-        $sql = "SELECT * FROM $entity WHERE $field IN ($slots)";
+        $sql = "SELECT * FROM $entity WHERE $field IN ($slots) $sql ";
         if (!empty($page)) {
-            $sql .= "LIMIT {$page['page']}, {$page['perPage']}";
+            $pageN = $page['page'] - 1;
+            $sql .= "LIMIT {$pageN}, {$page['perPage']}";
         }
         return R::getAssoc($sql, $values);
     }

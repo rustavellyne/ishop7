@@ -3,6 +3,7 @@
 namespace IShop\Controller;
 
 use IShop\Framework\App;
+use IShop\Model\AttributeModel;
 use IShop\Model\BreadcrumbsModel;
 use IShop\Model\CategoryModel;
 use IShop\Model\PaginationModel;
@@ -23,9 +24,16 @@ class CategoryController extends BaseController
         $ids = $catModel->getChildCategoryIds($categoryAlias);
         $pageNumber = $parameters['page'] ?? 1;
         $perPage = $parameters['perpage'] ?? 3;
-        $totalProducts = $productModel->countProducts($ids);
+        $filters = $parameters['filters'] ?? [];
+        $filtersSql = '';
+        if (!empty($filters)) {
+            $attrIds = implode(', ', $filters);
+            $group = (new AttributeModel())->getCountGroups($attrIds);
+            $filtersSql = " AND id IN (SELECT product_id FROM attributeproduct a WHERE a.attr_id IN ($attrIds) GROUP BY product_id HAVING COUNT(product_id) = $group) ";
+        }
+        $totalProducts = $productModel->countProducts($ids, $filtersSql);
         $pagination = (new PaginationModel($totalProducts, $pageNumber, $perPage))->getPagination();
-        $products = $productModel->getProducts($ids, 'category_id', ['page' => $pageNumber, 'perPage' => $perPage]);
+        $products = $productModel->getProducts($ids, 'category_id', $filtersSql, ['page' => $pageNumber, 'perPage' => $perPage]);
         $this->setData(compact('categoryCurrent', 'products', 'pagination'));
         $this->setMeta([
             'head' => ['title' => $categoryCurrent->title],
