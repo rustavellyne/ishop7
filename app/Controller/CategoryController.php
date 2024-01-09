@@ -25,7 +25,7 @@ class CategoryController extends BaseController
         $perPage = $parameters['perpage'] ?? 3;
         $totalProducts = $productModel->countProducts($ids);
         $pagination = (new PaginationModel($totalProducts, $pageNumber, $perPage))->getPagination();
-        $products = $productModel->getProducts($ids, ['page' => 1, 'perPage' => $perPage]);
+        $products = $productModel->getProducts($ids, 'category_id', ['page' => $pageNumber, 'perPage' => $perPage]);
         $this->setData(compact('categoryCurrent', 'products', 'pagination'));
         $this->setMeta([
             'head' => ['title' => $categoryCurrent->title],

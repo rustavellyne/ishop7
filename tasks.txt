@@ -80,15 +80,19 @@ Tasks
 17. Pagination <- DONE!
     1. get Config for pagination
 18. Registration <- DONE!
-    1. Registration dropdown
-    2. User Controller
-    3. Validation Class
-    4. Bootstrap Validator, Valitron
-19. Place Order
-    1. Page of cart
-    2. form of not login user
-    3.
-
+    1. Registration dropdown +
+    2. User Controller +
+    3. Validation Class +
+    4. Bootstrap Validator, Valitron +
+19. Place Order <- DONE!
+    1. Page of cart +
+    2. form of not login user +
+    3. Implement EMAIL notification (LATER);
+20. Filters
+    1. Class for retrieving and caching filters
+    2. render in widgets
+    3. make JS handler for filters
+    4.
 
 
 

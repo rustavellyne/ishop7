@@ -53,9 +53,9 @@ class ProductModel extends AbstractModel
      * @param array $ids
      * @return array
      */
-    public function getProducts(array $ids, $page = []): array
+    public function getProducts(array $ids, $field = 'id', $page = []): array
     {
-        return $this->db->getEntityIN('product', 'id', $ids, $page);
+        return $this->db->getEntityIN('product', $field, $ids, $page);
     }
 
     public function countProducts(array $ids): int

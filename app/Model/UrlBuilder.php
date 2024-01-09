@@ -21,6 +21,9 @@ class UrlBuilder
             parse_str($query, $params);
             $params[$field] = $value;
             $path .= '?' . http_build_query($params);
+        } else {
+            $params[$field] = $value;
+            $path .= '?' . http_build_query($params);
         }
         return $path;
     }
