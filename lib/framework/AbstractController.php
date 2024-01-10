@@ -10,17 +10,24 @@ abstract class AbstractController
     protected string $templateName;
     protected array $data = [];
     protected array $meta = [];
+    protected ?string $prefix = null;
+    protected string $layout = '';
 
     public function __construct(array $route)
     {
         $this->route = $route;
-        $this->templateName = $route['controller'] . DS . $route['action'];
+
+        if (isset($this->route['prefix'])) {
+            $this->prefix = $this->route['prefix'];
+            $this->layout = $this->prefix;
+        }
+        $this->templateName = $this->prefix . DS . $route['controller'] . DS . $route['action'];
     }
 
     public function renderPage(): string
     {
         if (is_null($this->view)) {
-            $this->view = new \IShop\Framework\View($this->templateName);
+            $this->view = new \IShop\Framework\View($this->templateName, $this->layout ?: null);
         }
 
         return $this->view->renderPage($this->data, $this->meta);

@@ -26,9 +26,9 @@ class View
         $templateContent = $this->renderTemplate($data);
         $pageData = [
             'content' => $templateContent,
-            'head' => $meta['head'],
-            'meta' => $meta['meta'],
-            'general' => $meta['general']
+            'head' => $meta['head'] ?? [],
+            'meta' => $meta['meta'] ?? [],
+            'general' => $meta['general'] ?? []
         ];
         $fullPage = $this->loadViewFile($layoutPath, $pageData);
         return $fullPage; 

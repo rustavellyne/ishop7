@@ -52,9 +52,9 @@ class UserModel extends AbstractModel
      * @param $value
      * @return \RedBeanPHP\OODBBean|NULL
      */
-    public function getUserByField($field, $value): ?\RedBeanPHP\OODBBean
+    public function getUserByField($field, $value, $role = 'user'): ?\RedBeanPHP\OODBBean
     {
-        return $this->db->findOne('user', "$field = ? AND role = 'user'", [$value]);
+        return $this->db->findOne('user', "$field = ? AND role = '$role'", [$value]);
     }
 
     /**
