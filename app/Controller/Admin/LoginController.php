@@ -36,7 +36,11 @@ class LoginController extends AbstractAdminController
                             $_SESSION['admin'][$k] = $v;
                         }
                     }
-                    FlashMessage::addMessage("Вітаємо, {$_SESSION['user']['name']}! ", FlashMessage::SUCCESS);
+                    FlashMessage::addMessage(
+                        "Вітаємо, 
+                        {$_SESSION['admin']['name']}! ",
+                        FlashMessage::SUCCESS
+                    );
                     redirect('/admin');
                 } else {
                     FlashMessage::addMessage('Wrong email or password', FlashMessage::ERROR);

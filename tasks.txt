@@ -92,7 +92,13 @@ Tasks
     1. Class for retrieving and caching filters
     2. render in widgets
     3. make JS handler for filters
-    4.
+21. AdminLte
+22. Login Admin
+23. Dashboard
+    1. statistics
+24. Order List Page
+25. Order Page
+    1. Delete, apply actions
 
 
 
