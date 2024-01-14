@@ -28,11 +28,19 @@ class OrderController extends AbstractAdminController
     public function view()
     {
         $parameters = $this->getParameters('GET');
-        $orderId = $parameters['id'];
+        $orderId = (int)$parameters['id'];
         if (!$orderId) {
             throw new \Exception("Order Not Found: ", 404);
         }
-
-        echo "Order $orderId";
+        $orderModel = new OrderModel();
+        $order = $orderModel->getOrderById($orderId);
+        if (empty($order['order_id'])) {
+            throw new \Exception("Order Not Found: ", 404);
+        }
+        $orderProducts = $orderModel->getOrderProductsById($orderId);
+        $data = compact('order', 'orderProducts');
+        $this->setData($data);
+        $this->setMeta(['general' => ['page' => 'sales']]);
+        echo $this->renderPage();
     }
 }

@@ -47,6 +47,22 @@ class OrderModel extends AbstractModel
         ];
     }
 
+    public function getOrderById(int $id)
+    {
+        $sql = "SELECT o.id as order_id, o.status as order_status, o.date as order_create_date, o.update_at as order_update_date, ";
+        $sql .= "o.currency, u.name as customer_name, ROUND(SUM(op.price)) as totals, o.note FROM `order` o";
+        $sql .= " LEFT JOIN user u ON o.user_id = u.id";
+        $sql .= " LEFT JOIN orderproduct op ON o.id = op.order_id";
+        $sql .= " WHERE `o`.`id` = ?";
+        return $this->db->getRow($sql, [$id]);
+    }
+
+    public function getOrderProductsById($orderId)
+    {
+        $sql = "SELECT * FROM orderproduct WHERE order_id = ?";
+        return $this->db->getAll($sql, [$orderId]);
+    }
+
     public function getOrders($page = [])
     {
         $sql = "SELECT o.id as order_id, o.status as order_status, o.date as order_create_date, o.update_at as order_update_date, ";

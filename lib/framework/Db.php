@@ -63,6 +63,16 @@ class Db
     }
 
     /**
+     * @param $sql
+     * @param $bindings
+     * @return array|int|\RedBeanPHP\Cursor|NULL
+     */
+    public function getRow($sql, $bindings = [])
+    {
+        return R::getRow($sql, $bindings);
+    }
+
+    /**
      * @param $tableName
      * @param $data
      * @return int[]
