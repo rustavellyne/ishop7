@@ -215,7 +215,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-header">Main</li>
           <li class="nav-item">
-            <a href="/admin" class="nav-link active">
+            <a href="/admin" class="nav-link <?= $general['page'] == 'dashboard' ? 'active' : '' ?>">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Dashboard
@@ -224,8 +224,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
+            <a href="#" class="nav-link <?= $general['page'] == 'sales' ? 'active' : '' ?>">
+              <i class="nav-icon fas fa-money-bill-wave-alt"></i>
               <p>
                 Sales
                 <i class="fas fa-angle-left right"></i>
@@ -233,21 +233,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Inbox</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Compose</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/read-mail.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Read</p>
+                <a href="admin/order/view" class="nav-link <?= $general['page'] == 'catalog' ? 'active' : '' ?>">
+                    <i class="fa fa-list-alt nav-icon"></i>
+                    <p>Orders</p>
                 </a>
               </li>
             </ul>

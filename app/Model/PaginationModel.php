@@ -34,6 +34,7 @@ class PaginationModel
         $this->setPrevState();
         $this->setNextState();
         $this->setNumbers();
+        $this->setAmountInfo();
     }
 
     protected function setPrevState()
@@ -48,6 +49,15 @@ class PaginationModel
         $page =  $this->currentPage >= $this->pages ? 0 : $this->currentPage + 1;
         $this->pagination['next']['value'] = $this->urlBuilder->build('page', $page);
         $this->pagination['next']['state'] = $this->currentPage >= $this->pages ? 'disabled' : '';
+    }
+
+    protected function setAmountInfo()
+    {
+        $this->pagination['amount'] = [
+            'totals' => $this->total,
+            'start' => ($this->currentPage - 1) * $this->perPage + 1,
+            'end' => ($this->currentPage - 1) * $this->perPage + $this->perPage
+        ];
     }
 
     protected function setNumbers()

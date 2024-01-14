@@ -11,6 +11,7 @@ class IndexController extends AbstractAdminController
     {
         $data = (new DashBoardModel())->getStatistics();
         $this->setData($data);
+        $this->setMeta(['general' => ['page' => 'dashboard']]);
         echo $this->renderPage();
     }
 }
