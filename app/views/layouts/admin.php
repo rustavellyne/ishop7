@@ -28,11 +28,6 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <?php foreach(\IShop\Service\FlashMessage::getMessages() as $message): ?>
-        <div class="container">
-            <div class="alert alert-<?= $message['type'] ?>" role="alert"><?= $message['message'] ?></div>
-        </div>
-    <?php endforeach; ?>
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
@@ -320,6 +315,11 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+  <?php foreach(\IShop\Service\FlashMessage::getMessages() as $message): ?>
+      <div class="container">
+          <div class="alert alert-<?= $message['type'] ?>" role="alert"><?= $message['message'] ?></div>
+      </div>
+  <?php endforeach; ?>
     <?= $content ?? '' ?>
     <!-- /.content -->
   </div>

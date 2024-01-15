@@ -100,6 +100,21 @@ class Db
         return R::store($table);
     }
 
+    public function store($bean)
+    {
+        return R::store($bean);
+    }
+
+    public function loadById($entity, $id)
+    {
+        return R::load($entity, $id);
+    }
+
+    public function remove($bean)
+    {
+        return R::trash($bean);
+    }
+
     public function __destruct()
     {
          R::close();

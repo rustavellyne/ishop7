@@ -57,6 +57,33 @@ class OrderModel extends AbstractModel
         return $this->db->getRow($sql, [$id]);
     }
 
+    public function loadOrderById(int $id)
+    {
+        return $this->db->loadById('order', $id);
+    }
+
+    public function remove($bean)
+    {
+        return $this->db->remove($bean);
+    }
+
+    public function update($order, $field, $value)
+    {
+        $order->$field = $value;
+        $order->update_at = date('Y-m-d H:i:s');
+        $this->db->store($order);
+    }
+
+    public function updateStatus($order, $value): void
+    {
+        if (in_array($value, [0, 1])) {
+            $status = $value + 1; // ENUM on save
+            $this->update($order, 'status', $status);
+            return;
+        }
+        throw new \Exception('wrong order status code');
+    }
+
     public function getOrderProductsById($orderId)
     {
         $sql = "SELECT * FROM orderproduct WHERE order_id = ?";

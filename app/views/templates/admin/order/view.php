@@ -10,7 +10,7 @@ $totalQty = array_reduce($orderProducts, fn($sum, $item) => $sum + $item['qty'],
                 <div class="actions ml-3 d-inline-flex">
                     <?php if ($order['order_status'] == '1'): ?>
                         <a
-                            href="/admin/order/status?status_id=<?=$order['order_status']?>"
+                            href="/admin/order/status?order_id=<?= $order['order_id'] ?>&status_id=0"
                             type="button"
                             class="btn btn-block bg-gradient-info btn-xs"
                         >
@@ -18,7 +18,7 @@ $totalQty = array_reduce($orderProducts, fn($sum, $item) => $sum + $item['qty'],
                         </a>
                     <?php else: ?>
                         <a
-                            href="/admin/order/status?status_id=<?=$order['order_status']?>"
+                            href="/admin/order/status?order_id=<?= $order['order_id'] ?>&status_id=1"
                             type="button"
                             class="btn btn-block bg-gradient-success btn-xs d-inline-block"
                         >
@@ -26,7 +26,7 @@ $totalQty = array_reduce($orderProducts, fn($sum, $item) => $sum + $item['qty'],
                         </a>
                     <?php endif; ?>
                     <a
-                        href="/admin/order/delete?id=<?=$order['order_id']?>"
+                        href="/admin/order/delete?order_id=<?= $order['order_id'] ?>"
                         type="button"
                         class="btn btn-block bg-gradient-danger btn-xs d-inline-block m-0 ml-1"
                     >
