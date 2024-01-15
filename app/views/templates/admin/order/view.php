@@ -1,9 +1,38 @@
+<?php
+$totalQty = array_reduce($orderProducts, fn($sum, $item) => $sum + $item['qty'], 0);
+?>
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-sm-6 d-flex align-items-center">
                 <h1 class="m-0 text-bold">Order #<?= $order['order_id']?></h1>
+                <div class="actions ml-3 d-inline-flex">
+                    <?php if ($order['order_status'] == '1'): ?>
+                        <a
+                            href="/admin/order/status?status_id=<?=$order['order_status']?>"
+                            type="button"
+                            class="btn btn-block bg-gradient-info btn-xs"
+                        >
+                            Process
+                        </a>
+                    <?php else: ?>
+                        <a
+                            href="/admin/order/status?status_id=<?=$order['order_status']?>"
+                            type="button"
+                            class="btn btn-block bg-gradient-success btn-xs d-inline-block"
+                        >
+                            Approve
+                        </a>
+                    <?php endif; ?>
+                    <a
+                        href="/admin/order/delete?id=<?=$order['order_id']?>"
+                        type="button"
+                        class="btn btn-block bg-gradient-danger btn-xs d-inline-block m-0 ml-1"
+                    >
+                        Remove
+                    </a>
+                </div>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -45,7 +74,7 @@
                                 </tr>
                                 <tr>
                                     <td>Quantity</td>
-                                    <td>--</td>
+                                    <td><?= $totalQty ?></td>
                                 </tr>
                                 <tr>
                                     <td>Totals</td>
@@ -111,7 +140,7 @@
                                 <?php endforeach; ?>
                                 <tr class="bg-dark">
                                     <td class="text-bold" colspan="2">Summary</td>
-                                    <td class="text-bold"> <?= array_reduce($orderProducts, fn($sum, $item) => $sum + $item['qty'], 0) ?> </td>
+                                    <td class="text-bold"> <?= $totalQty ?? 0?> </td>
                                     <td class="text-bold"> <?= $order['totals'] . ' ' . $order['currency']?></td>
                                 </tr>
                             </tbody>
