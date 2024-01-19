@@ -72,7 +72,7 @@ class MainNavigation
     /**
      * @return array
      */
-    protected function getTreeCache():array {
+    public function getTreeCache():array {
         $cachedMenu = $this->cache->get($this->cacheKey);
         if (!empty($cachedMenu)) {
             return $cachedMenu;

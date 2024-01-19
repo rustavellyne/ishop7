@@ -2,6 +2,8 @@
 
 namespace IShop\Model;
 
+use IShop\widgets\mainNavigation\MainNavigation;
+
 class CategoryModel extends AbstractModel
 {
     public function getCategories(): array
@@ -40,6 +42,12 @@ class CategoryModel extends AbstractModel
             }
         }
         return implode(',', $ids);
+    }
+
+    public function getCategoryTree()
+    {
+        $treeModel = new MainNavigation();
+        return $treeModel->getTreeCache();
     }
 
 }

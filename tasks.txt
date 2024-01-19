@@ -88,17 +88,24 @@ Tasks
     1. Page of cart +
     2. form of not login user +
     3. Implement EMAIL notification (LATER);
-20. Filters
+20. Filters <- DONE!
     1. Class for retrieving and caching filters
     2. render in widgets
     3. make JS handler for filters
-21. AdminLte
-22. Login Admin
-23. Dashboard
+21. AdminLte <- DONE!
+22. Login Admin <- DONE!
+23. Dashboard <- DONE!
     1. statistics
-24. Order List Page
-25. Order Page
+24. Order List Page <- DONE!
+25. Order Page <- DONE!
     1. Delete, apply actions
+26. Categories
+    1. make menu
+    2. render categories tree
+    3. handle remove categories
+    4. add categories
+    5. edit category
+    6. cyrillic to translit and generate url
 
 
 
