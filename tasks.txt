@@ -99,13 +99,13 @@ Tasks
 24. Order List Page <- DONE!
 25. Order Page <- DONE!
     1. Delete, apply actions
-26. Categories
-    1. make menu
-    2. render categories tree
-    3. handle remove categories
-    4. add categories
-    5. edit category
-    6. cyrillic to translit and generate url
+26. Categories <- DONE!
+    1. make menu +
+    2. render categories tree +
+    3. handle remove categories +
+    4. add categories +
+    5. edit category -
+    6. cyrillic to translit and generate url +
 
 
 

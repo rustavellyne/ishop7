@@ -2,19 +2,14 @@
 
 namespace IShop\Controller\Admin;
 
-use IShop\Framework\AbstractController;
-use IShop\Model\CartModel;
 use IShop\Model\CategoryModel;
-use IShop\Model\DashBoardModel;
-use IShop\Model\OrderModel;
-use IShop\Model\PaginationModel;
 use IShop\Service\FlashMessage;
+use Valitron\Validator;
 
 class CategoryController extends AbstractAdminController
 {
     public function index()
     {
-        $parameters = $this->getParameters('GET');
         $catModel = new CategoryModel();
         $tree = $catModel->getCategoryTree();
         $data = compact('tree');
@@ -23,22 +18,59 @@ class CategoryController extends AbstractAdminController
         echo $this->renderPage();
     }
 
-    public function view()
+    public function remove()
     {
         $parameters = $this->getParameters('GET');
-        $orderId = (int)$parameters['id'];
-        if (!$orderId) {
-            throw new \Exception("Order Not Found: ", 404);
+        if (!isset($parameters['id']) || !is_numeric($parameters['id'])) {
+            FlashMessage::addMessage('Wrong parameter', FlashMessage::ERROR);
+            redirect();
         }
-        $orderModel = new OrderModel();
-        $order = $orderModel->getOrderById($orderId);
-        if (empty($order['order_id'])) {
-            throw new \Exception("Order Not Found: ", 404);
+        $catModel = new CategoryModel();
+        $result = $catModel->removeCategoryById($parameters['id']);
+        if ($result) {
+            FlashMessage::addMessage('Category removed', FlashMessage::SUCCESS);
+            redirect('/admin/category');
         }
-        $orderProducts = $orderModel->getOrderProductsById($orderId);
-        $data = compact('order', 'orderProducts');
+        FlashMessage::addMessage('Category has sub children or products assigned', FlashMessage::ERROR);
+        redirect('/admin/category');
+    }
+
+    public function add()
+    {
+        if ($this->isPost()){
+            $v = new Validator($_POST);
+            $rules = [
+                'required' => [['parent_id'], ['category_title'], ['category_description'], ['category_keywords']],
+            ];
+            $v->rules($rules);
+            if ($v->validate()) {
+                $catModel = new CategoryModel();
+                $result = $catModel->saveCategory($_POST);
+                if (!$result) {
+                    FlashMessage::addMessage('Wrong Save Form', FlashMessage::ERROR);
+                    redirect();
+                }
+                FlashMessage::addMessage('Category saved', FlashMessage::SUCCESS);
+                redirect('/admin/category');
+            } else {
+                FlashMessage::addMessage('Wrong Form data', FlashMessage::ERROR);
+                redirect();
+            }
+        } else {
+            $parameters = $this->getParameters('GET');
+            if (!isset($parameters['id']) || !is_numeric($parameters['id'])) {
+                FlashMessage::addMessage('Wrong parameters', FlashMessage::ERROR);
+                redirect('/admin/category');
+                return;
+            }
+            $parent_id = $parameters['id'];
+            $catModel = new CategoryModel();
+            $parentCat = $catModel->getCategoryById($parent_id);
+            $data = compact('parent_id', 'parentCat');
+        }
+
         $this->setData($data);
-        $this->setMeta(['general' => ['page' => 'sales']]);
+        $this->setMeta(['general' => ['page' => 'catalog']]);
         echo $this->renderPage();
     }
 }

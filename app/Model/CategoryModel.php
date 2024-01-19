@@ -50,4 +50,54 @@ class CategoryModel extends AbstractModel
         return $treeModel->getTreeCache();
     }
 
+    public function getCategoryById(int $id)
+    {
+        if ($id === 0) {
+            $root = new \stdClass();
+            $root->id = 0;
+            $root->title = 'Root';
+            return $root;
+        }
+        return $this->db->findOne('category', 'id = ?', [$id]);
+    }
+
+    public function saveCategory($data)
+    {
+        $newCatData = [
+            'parent_id' => $data['parent_id'] ?? 0,
+            'title' => $data['category_title'],
+            'description' => $data['category_description'],
+            'keywords' => $data['category_keywords'],
+            'alias' => $this->getAliasForCategory($data['category_title']),
+        ];
+
+        return $this->db->save('category', $newCatData);
+    }
+
+    protected function getAliasForCategory(string $title): string
+    {
+        $alias = slugify($title);
+        $duplicate = $this->getCategoryByAlias($alias);
+        if ($duplicate) {
+            // TODO: better implementation of avoiding duplicate aliases
+            return $duplicate->alias . '1';
+        }
+        return $alias;
+    }
+
+    public function removeCategoryById(int $id): bool
+    {
+        $childrenQty = $this->db->countEntity('category', "WHERE parent_id = $id");
+        if ($childrenQty) {
+            return false;
+        }
+        $productsQty = $this->db->countEntity('product', "WHERE category_id = $id");
+        if ($productsQty) {
+            return false;
+        }
+        $category = $this->db->loadById('category', $id);
+        $this->db->remove($category);
+        return true;
+    }
+
 }
