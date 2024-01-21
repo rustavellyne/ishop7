@@ -233,7 +233,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="admin/order/view" class="nav-link">
+                                <a href="admin/order" class="nav-link">
                                     <i class="fa fa-list-alt nav-icon"></i>
                                     <p>Orders</p>
                                 </a>

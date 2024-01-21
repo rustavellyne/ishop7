@@ -31,7 +31,7 @@
                         <h3 class="card-title text-bold">Users List</h3>
                         <div class="card-tools">
                             <div class="actions">
-                                <a class="btn btn-app bg-success">
+                                <a class="btn btn-app bg-success" href="/admin/users/create">
                                     <i class="fas fa-users"></i> Create New User
                                 </a>
                             </div>
@@ -60,13 +60,13 @@
                                     <td><?= $user->email ?></td>
                                     <td><?= $user->role ?></td>
                                     <td>
-                                        <a class="btn btn-outline-primary">
+                                        <a class="btn btn-outline-primary" href="/admin/users/view?id=<?= $user->id?>">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a class="btn btn-outline-success">
+                                        <a class="btn btn-outline-success" href="/admin/users/edit?id=<?= $user->id?>">
                                             <i class="fa fa-pen"></i>
                                         </a>
-                                        <a class="btn btn-outline-danger">
+                                        <a class="btn btn-outline-danger" href="/admin/users/delete?id=<?= $user->id?>">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>

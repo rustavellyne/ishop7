@@ -57,6 +57,11 @@ class UserModel extends AbstractModel
         return $this->db->findOne('user', "$field = ? AND role = '$role'", [$value]);
     }
 
+    public function getUserById($id)
+    {
+        return $this->db->findOne('user', "id = ?", [$id]);
+    }
+
     /**
      * @param $field
      * @param $value

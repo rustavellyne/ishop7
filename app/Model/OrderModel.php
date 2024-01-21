@@ -109,6 +109,12 @@ class OrderModel extends AbstractModel
     {
         return $this->db->countEntity('order', '');
     }
+
+    public function getOrderByField($field, $value)
+    {
+        $sql = "SELECT * FROM `order` WHERE $field = ?";
+        return $this->db->getAll($sql, [$value]);
+    }
 }
 
 
