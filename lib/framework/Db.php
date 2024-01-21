@@ -41,6 +41,11 @@ class Db
         return R::findOne($type, $sql, $bindings);
     }
 
+    public function findAll($type, $sql = NULL, $bindings = [])
+    {
+        return R::findAll($type, $sql, $bindings);
+    }
+
     /**
      * @param string $entity
      * @param string $sql

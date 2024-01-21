@@ -68,4 +68,19 @@ class UserModel extends AbstractModel
         return empty($result);
     }
 
+    public function getUsers($page = [])
+    {
+        $sql = '';
+        if ($page) {
+            $pageN = $page['page'] - 1;
+            $sql .= "LIMIT {$pageN}, {$page['perPage']}";
+        }
+        return $this->db->findAll('user', $sql);
+    }
+
+    public function count(): int
+    {
+        return $this->db->countEntity('user', '');
+    }
+
 }
