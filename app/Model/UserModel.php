@@ -8,6 +8,8 @@ class UserModel extends AbstractModel
 {
     private array $storage;
 
+    private ?int $userId = null;
+
     private array $attributes = [
         'name'      => '',
         'address'   => '',
@@ -34,7 +36,11 @@ class UserModel extends AbstractModel
                 throw new \Exception("Error field $key is required");
             }
             if ($key === 'password') {
-                $this->attributes[$key] = password_hash($data[$key], PASSWORD_DEFAULT);
+                if (!empty($data[$key])) {
+                    $this->attributes[$key] = password_hash($data[$key], PASSWORD_DEFAULT);
+                } else {
+                    unset($this->attributes['password']);
+                }
             } else {
                 $this->attributes[$key] = $data[$key];
             }
@@ -47,6 +53,9 @@ class UserModel extends AbstractModel
 
     public function save()
     {
+        if ($this->userId) {
+            $this->attributes['id'] = $this->userId;
+        }
         return $this->db->save('user', $this->attributes);
     }
 
@@ -65,6 +74,14 @@ class UserModel extends AbstractModel
         return $this->db->findOne('user', "id = ?", [$id]);
     }
 
+    public function setUserId(int $id)
+    {
+        if (!is_numeric($id)) {
+            return;
+        }
+        $this->userId = $id;
+    }
+
     /**
      * @param $field
      * @param $value
@@ -72,7 +89,11 @@ class UserModel extends AbstractModel
      */
     public function isUnique($field, $value): bool
     {
-        $result = $this->db->findOne('user', "$field = ?", [$value]);
+        $sql = '';
+        if ($this->userId) {
+            $sql = " AND id != $this->userId ";
+        }
+        $result = $this->db->findOne('user', "$field = ?" . $sql, [$value]);
         return empty($result);
     }
 

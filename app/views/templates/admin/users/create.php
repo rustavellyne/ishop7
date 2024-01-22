@@ -3,14 +3,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Users Create</h1>
+                <h1 class="m-0"><?= $page['title'] ?? 'Users Create'?></h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                     <li class="breadcrumb-item">Settings</li>
                     <li class="breadcrumb-item active">Users</li>
-                    <li class="breadcrumb-item active">Create</li>
+                    <li class="breadcrumb-item active"><?= $page['breadcrumb'] ?? 'Create'?></li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,9 +29,15 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Create Form</h3>
+                        <h3 class="card-title"><?= $page['breadcrumb'] ?? 'Create'?> Form</h3>
                     </div>
                     <form class="card-body user-admin-registered-form" method="post">
+                        <?php if (isset($form['user_id'])): ?>
+                        <input
+                                value="<?= $form['user_id'] ?? ''?>"
+                                type="text" name="user_id" class="form-control" hidden
+                        >
+                        <?php endif; ?>
                         <div class="form-group <?= isset($errors['name']) ? 'has-error is-invalid' : '' ?>">
                             <label for="userName">Name</label>
                             <input
@@ -85,7 +91,7 @@
                             <label for="userPassword">Password</label>
                             <input
                                 value="<?= $form['password'] ?? ''?>"
-                                type="password" id="userPassword" name="password" class="form-control" required
+                                type="password" id="userPassword" name="password" class="form-control" <?= $page['pass_not_required'] ? '' : 'required'?>
                             >
                             <?php if (!empty($errors['password'])): ?>
                                 <span class="help-block error invalid-feedback">
@@ -97,7 +103,7 @@
                             <label for="userRePassword">Retype Password</label>
                             <input
                                 value="<?= $form['password_confirmation'] ?? ''?>"
-                                type="password" id="userRePassword" name="password_confirmation" class="form-control" required
+                                type="password" id="userRePassword" name="password_confirmation" class="form-control" <?= $page['pass_not_required'] ? '' : 'required'?>
                             >
                             <?php if (!empty($errors['password_confirmation'])): ?>
                                 <span class="help-block error invalid-feedback">
@@ -109,9 +115,9 @@
                         <div class="form-group <?= isset($errors['role']) ? 'has-error is-invalid' : '' ?>">
                             <label for="userRole">Role</label>
                             <select id="userRole" class="form-control custom-select" name="role" required>
-                                <option selected="" disabled="">Select one</option>
-                                <option value="user">User</option>
-                                <option value="admin">Admin</option>
+                                <option <?= $form['role'] == '' ? 'selected' : '' ?> selected="" disabled="">Select one</option>
+                                <option <?= $form['role'] == 'user' ? 'selected' : '' ?> value="user">User</option>
+                                <option <?= $form['role'] == 'admin' ? 'selected' : '' ?> value="admin">Admin</option>
                             </select>
                         </div>
                         <div class="form-group">
