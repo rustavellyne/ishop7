@@ -107,13 +107,13 @@ Tasks
     5. edit category -
     6. cyrillic to translit and generate url +
 27. Cache Control
-    1. System settings, cache page
-    2. handle clear cache
-28. Users
-    1. users list
-    2. user edit
-    3. user page
-    4. Add user
+    1. System settings, cache page +
+    2. handle clear cache +
+28. Users <- DONE!
+    1. users list +
+    2. user edit +
+    3. user page +
+    4. Add user +
 29.
 
 

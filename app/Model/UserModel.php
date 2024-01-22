@@ -51,6 +51,15 @@ class UserModel extends AbstractModel
         return $this;
     }
 
+    /**
+     * @param $user
+     * @return int
+     */
+    public function deleteUser($user)
+    {
+        return $this->db->remove($user);
+    }
+
     public function save()
     {
         if ($this->userId) {

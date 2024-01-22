@@ -47,6 +47,25 @@ class UsersController extends AbstractAdminController
         echo $this->renderPage();
     }
 
+    public function delete()
+    {
+        $parameters = $this->getParameters('GET');
+        $id = $parameters['id'] ?? 0;
+        if (!is_numeric($id) || $id <= 0) {
+            FlashMessage::addMessage('Wrong user ID', FlashMessage::ERROR);
+            redirect('/admin/users');
+        }
+        $userModel = new UserModel();
+        $user = $userModel->getUserById($id);
+        if (!$user) {
+            FlashMessage::addMessage('User not found', FlashMessage::ERROR);
+            redirect('/admin/users');
+        }
+        $userModel->deleteUser($user);
+        FlashMessage::addMessage('User Removed', FlashMessage::INFO);
+        redirect('/admin/users');
+    }
+
     public function edit()
     {
         $this->templateName = 'admin/users/create';
