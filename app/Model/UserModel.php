@@ -39,6 +39,9 @@ class UserModel extends AbstractModel
                 $this->attributes[$key] = $data[$key];
             }
         }
+        if (isset($data['role']) && $data['role'] === 'admin') {
+            $this->attributes['role'] = $data['role'];
+        }
         return $this;
     }
 
