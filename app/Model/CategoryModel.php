@@ -11,6 +11,11 @@ class CategoryModel extends AbstractModel
         return $this->db->getAssoc('SELECT * FROM category');
     }
 
+    public function getCategoriesObj(): array
+    {
+        return $this->db->findAll('category');
+    }
+
     public function getChildCategoryIds(string $alias): array
     {
         $ids = [];

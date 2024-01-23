@@ -6,6 +6,24 @@ use RedBeanPHP\Cursor;
 
 class ProductModel extends AbstractModel
 {
+
+    private ?int $productId = null;
+
+    private array $attributes = [
+        'category_id' => '',
+        'brand_id' => '',
+        'title' => '',
+        'alias' => '',
+        'content' => '',
+        'price' => '',
+        'old_price' => '',
+        'status' => '',
+        'keywords' => '',
+        'description' => '',
+        'hit' => '',
+        'img' => '',
+    ];
+
     /**
      * @param $alias
      * @return int|\RedBeanPHP\Cursor|string[]|NULL
@@ -126,12 +144,50 @@ class ProductModel extends AbstractModel
         return $this->db->countEntity('product', '');
     }
 
-    public function getProductsCollection($page = [], $sql = '')
+    public function getProductsCollection($page = [], $sql = '', $order = 'DESC')
     {
         if ($page) {
-            $pageN = $page['page'] - 1;
-            $sql .= "LIMIT {$pageN}, {$page['perPage']}";
+            $pageN = ($page['page'] - 1) * $page['perPage'];
+            $order = "ORDER BY product.id $order";
+            $sql .= "$order LIMIT {$pageN}, {$page['perPage']}";
         }
         return $this->db->findAll('product', $sql);
+    }
+
+    public function load(array $data)
+    {
+        $data = $this->populate($data);
+        foreach ($this->attributes as $key => $value) {
+            if (!isset($data[$key])) {
+                throw new \Exception("Error field $key is required");
+            }
+            $this->attributes[$key] = $data[$key];
+        }
+
+        return $this;
+    }
+
+    public function save()
+    {
+        if ($this->productId) {
+            $this->attributes['id'] = $this->productId;
+        }
+        return $this->db->save('product', $this->attributes);
+    }
+
+    private function populate($data)
+    {
+        if ($data['title']) {
+            $alias = slugify($data['title']);
+            $duplicate = $this->getProduct($alias);
+            if (!empty($duplicate)) {
+                $alias .= '1';
+            }
+            $data['alias'] = $alias;
+        }
+        $data['img'] = 'temp';
+        $data['hit'] = $data['hit'] == 'on' ? '2' : '1'; // ENUM index
+        $data['status'] = $data['status'] == '1' ? '2' : '1'; // ENUM index
+        return $data;
     }
 }

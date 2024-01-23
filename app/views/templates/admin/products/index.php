@@ -32,7 +32,7 @@
                         <div class="card-tools">
                             <div class="actions">
                                 <a class="btn btn-app bg-success" href="/admin/products/create">
-                                    <i class="fas fa-file-powerpoint-o "></i> Create New Product
+                                    <i class="fas fa-file"></i> Create New Product
                                 </a>
                             </div>
                         </div>
