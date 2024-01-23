@@ -120,4 +120,18 @@ class ProductModel extends AbstractModel
         $sql = "SELECT * FROM modification WHERE product_id = ?";
         return $this->db->getAssoc($sql, [$productId]);
     }
+
+    public function count(): int
+    {
+        return $this->db->countEntity('product', '');
+    }
+
+    public function getProductsCollection($page = [], $sql = '')
+    {
+        if ($page) {
+            $pageN = $page['page'] - 1;
+            $sql .= "LIMIT {$pageN}, {$page['perPage']}";
+        }
+        return $this->db->findAll('product', $sql);
+    }
 }
