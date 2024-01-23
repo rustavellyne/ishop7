@@ -6,7 +6,6 @@ use RedBeanPHP\Cursor;
 
 class ProductModel extends AbstractModel
 {
-
     private ?int $productId = null;
 
     private array $attributes = [
@@ -23,6 +22,11 @@ class ProductModel extends AbstractModel
         'hit' => '',
         'img' => '',
     ];
+
+    public function setProductId(int $id)
+    {
+        $this->productId = $id;
+    }
 
     /**
      * @param $alias
