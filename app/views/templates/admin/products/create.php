@@ -172,6 +172,43 @@
                             <?php endif; ?>
                         </div>
 
+                        <?php if (!empty($attributes)): ?>
+                        <div class="card">
+                            <div class="card-header d-flex p-0">
+
+                                <ul class="nav nav-pills p-2">
+                                    <?php foreach ($attributes as $key => $attribute): ?>
+                                        <li class="nav-item">
+                                            <a class="nav-link <?= $key === 1 ? 'active' : ''?>" href="#tab_<?= $attribute['group']['group_id'] ?>" data-toggle="tab"><?= $attribute['group']['group_title'] ?></a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <h3 class="card-title p-3 ml-auto" >Attributes</h3>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <?php foreach ($attributes as $key => $group): ?>
+                                    <div class="tab-pane <?= $key === 1 ? 'active' : ''?>" id="tab_<?= $group['group']['group_id'] ?>">
+                                        <?php foreach ($group['attributes'] as $attribute): ?>
+                                            <div class="form-check">
+                                                <input
+                                                    class="form-check-input"
+                                                    id ="attr_<?= $attribute['attr_id'] ?>"
+                                                    type="radio"
+                                                    name="group[<?= $group['group']['group_id'] ?>]"
+                                                    <?= in_array($attribute['attr_id'], $productAttributes) ? 'checked' : ''?>
+                                                    value="<?= $attribute['attr_id'] ?>"
+                                                >
+                                                <label class="form-check-label" for="attr_<?= $attribute['attr_id'] ?>"><?= $attribute['attribute_title'] ?></label>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                        </div>
+                        <?php endif; ?>
                         <div class="form-group">
                             <label for="submit_save">Actions</label>
                             <input type="submit" id="submit_save" class="btn btn-success form-control" value="Save">

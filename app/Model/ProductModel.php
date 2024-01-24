@@ -7,6 +7,7 @@ use RedBeanPHP\Cursor;
 class ProductModel extends AbstractModel
 {
     private ?int $productId = null;
+    private array $attr = [];
 
     private array $attributes = [
         'category_id' => '',
@@ -176,7 +177,35 @@ class ProductModel extends AbstractModel
         if ($this->productId) {
             $this->attributes['id'] = $this->productId;
         }
-        return $this->db->save('product', $this->attributes);
+        $id = $this->db->save('product', $this->attributes);
+        if ($id) {
+            // remove attributes
+            $this->removeAttributes($id);
+            // save attributes
+            $this->saveProductAttributes($id);
+        }
+        return $id;
+    }
+
+    public function saveProductAttributes($productId)
+    {
+        $attr = array_map(fn($attr_id) => [
+            'attr_id' => $attr_id,
+            'product_id' => $productId,
+        ], $this->attr);
+        if (empty($attr)) return;
+
+        $sql = "INSERT INTO attributeproduct ( attr_id, product_id ) VALUES ";
+        foreach ($attr as $row) {
+            $sql .= "( {$row['attr_id']}, {$row['product_id']} ),";
+        }
+        $sql = rtrim($sql, ',');
+        $this->db->execSql($sql);
+    }
+    public function removeAttributes(int $productId)
+    {
+        $sql = "DELETE FROM attributeproduct WHERE product_id = ?";
+        return $this->db->execSql($sql, [$productId]);
     }
 
     private function populate($data)
@@ -190,8 +219,21 @@ class ProductModel extends AbstractModel
             $data['alias'] = $alias;
         }
         $data['img'] = 'temp';
-        $data['hit'] = $data['hit'] == 'on' ? '2' : '1'; // ENUM index
+        $data['hit'] = isset($data['hit']) && $data['hit'] == 'on' ? '2' : '1'; // ENUM index
         $data['status'] = $data['status'] == '1' ? '2' : '1'; // ENUM index
+        $this->attr = $data['group'] ?? [];
         return $data;
+    }
+
+    public function getAttributes(int $productId)
+    {
+        $sql = 'SELECT * FROM attributeproduct WHERE product_id = ? ';
+        return $this->db->getAll($sql, [$productId]);
+    }
+
+    public function getAttributesIds(int $productId)
+    {
+        $attrs = $this->getAttributes($productId);
+        return array_map(fn($item) => $item['attr_id'], $attrs);
     }
 }

@@ -120,6 +120,11 @@ class Db
         return R::trash($bean);
     }
 
+    public function execSql($sql, $bindings = [])
+    {
+        return R::exec($sql, $bindings);
+    }
+
     public function __destruct()
     {
          R::close();

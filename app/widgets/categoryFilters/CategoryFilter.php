@@ -39,7 +39,7 @@ class CategoryFilter
     /**
      * @return array
      */
-    protected function getFiltersCache(): array
+    public function getFiltersCache(): array
     {
         $cached = $this->cache->get($this->cacheKey);
         if (!empty($cached)) {

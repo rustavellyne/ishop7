@@ -9,6 +9,7 @@ use IShop\Model\PaginationModel;
 use IShop\Model\ProductModel;
 use IShop\Model\UserModel;
 use IShop\Service\FlashMessage;
+use IShop\widgets\categoryFilters\CategoryFilter;
 use Valitron\Validator;
 
 class ProductsController extends AbstractAdminController
@@ -57,7 +58,9 @@ class ProductsController extends AbstractAdminController
             '0' => 'Disabled',
             '1' => 'Active',
         ];
-        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses');
+        $attributes = (new CategoryFilter())->getFiltersCache();
+        $productAttributes = [];
+        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses', 'attributes', 'productAttributes');
         $this->setData($data);
         $this->setMeta(['general' => ['page' => 'catalog']]);
         echo $this->renderPage();
@@ -89,7 +92,10 @@ class ProductsController extends AbstractAdminController
             'hit' => $product['hit'],
         ];
         $errors = null;
-        $page = [];
+        $page = [
+            'title' => 'Product Update',
+            'breadcrumb' => 'Update',
+        ];
         if ($this->isPost()) {
             $v = new Validator($_POST);
             $productModel->setProductId($id);
@@ -98,9 +104,9 @@ class ProductsController extends AbstractAdminController
             ];
             $v->rules($rules);
             if ($v->validate()) {
-                $id = $productModel->load($_POST)->save();
-                FlashMessage::addMessage('Product added', FlashMessage::SUCCESS);
-                redirect('/admin/products   ');
+                $productModel->load($_POST)->save();
+                FlashMessage::addMessage('Product Updated', FlashMessage::SUCCESS);
+                redirect('/admin/products');
             } else {
                 FlashMessage::addMessage('Check Form', FlashMessage::ERROR);
                 $errors = $v->errors();
@@ -113,7 +119,9 @@ class ProductsController extends AbstractAdminController
             '0' => 'Disabled',
             '1' => 'Active',
         ];
-        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses');
+        $productAttributes = $productModel->getAttributesIds($id);
+        $attributes = (new CategoryFilter())->getFiltersCache();
+        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses', 'attributes', 'productAttributes');
         $this->setData($data);
         $this->setMeta(['general' => ['page' => 'catalog']]);
         echo $this->renderPage();
