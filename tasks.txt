@@ -115,13 +115,16 @@ Tasks
     3. user page +
     4. Add user +
 29. Products Admin
-    1. Product List
-    2. Create Product Form
-    3. Connect CKEDITOR to text area content
-    4. KcFinder
-    5. File manager image loader
-    6. tabs for attributes product
-    7.
+    1. Product List +
+    2. Create Product Form +
+    3. Connect Summerlite to text area content +
+    4. KcFinder -
+    5. File manager image loader +
+    6. tabs for attributes product +
+30. Related Product
+    1. Select 2
+    2. handle save related products
+31. 
 
 
 

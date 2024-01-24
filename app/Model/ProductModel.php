@@ -8,6 +8,7 @@ class ProductModel extends AbstractModel
 {
     private ?int $productId = null;
     private array $attr = [];
+    private array $related = [];
 
     private array $attributes = [
         'category_id' => '',
@@ -47,6 +48,12 @@ class ProductModel extends AbstractModel
     {
         $sql = "SELECT $fields FROM product WHERE title LIKE ?";
         return (array)$this->db->getAssoc($sql, ["%$query%"]);
+    }
+
+    public function searchProductsService($query, $fields = '*'): array
+    {
+        $sql = "SELECT $fields FROM product WHERE title LIKE ?";
+        return (array)$this->db->getAll($sql, ["%$query%"]);
     }
 
     /**
@@ -183,6 +190,11 @@ class ProductModel extends AbstractModel
             $this->removeAttributes($id);
             // save attributes
             $this->saveProductAttributes($id);
+
+            // remove related
+            $this->removeRelatedProducts($id);
+            //save related
+            $this->saveRelatedProducts($id);
         }
         return $id;
     }
@@ -202,6 +214,29 @@ class ProductModel extends AbstractModel
         $sql = rtrim($sql, ',');
         $this->db->execSql($sql);
     }
+
+    public function saveRelatedProducts($productId)
+    {
+        $related = array_map(fn($related_id) => [
+            'related_id' => $related_id,
+            'product_id' => $productId,
+        ], $this->related);
+        if (empty($related)) return;
+
+        $sql = "INSERT INTO related_product ( product_id, related_id ) VALUES ";
+        foreach ($related as $row) {
+            $sql .= "( {$row['product_id']}, {$row['related_id']} ),";
+        }
+        $sql = rtrim($sql, ',');
+        $this->db->execSql($sql);
+    }
+
+    public function removeRelatedProducts(int $productId)
+    {
+        $sql = "DELETE FROM related_product WHERE product_id = ?";
+        return $this->db->execSql($sql, [$productId]);
+    }
+
     public function removeAttributes(int $productId)
     {
         $sql = "DELETE FROM attributeproduct WHERE product_id = ?";
@@ -222,6 +257,7 @@ class ProductModel extends AbstractModel
         $data['hit'] = isset($data['hit']) && $data['hit'] == 'on' ? '2' : '1'; // ENUM index
         $data['status'] = $data['status'] == '1' ? '2' : '1'; // ENUM index
         $this->attr = $data['group'] ?? [];
+        $this->related = $data['related'] ?? [];
         return $data;
     }
 

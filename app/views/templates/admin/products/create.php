@@ -171,11 +171,44 @@
                                 </span>
                             <?php endif; ?>
                         </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Related Products</h3>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control related-products-select-multiple w-100" name="related[]" multiple="multiple">
 
+                                    <?php foreach ($relatedProducts as $id => $product): ?>
+                                        <option value="<?= $id ?>" selected> <?= $product['title'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <!-- /.card-header -->
+                            <?php if (!empty($relatedProducts)):?>
+                            <div class="card-body p-0">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 50px">#</th>
+                                        <th>Title</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($relatedProducts as $id => $product): ?>
+                                        <tr>
+                                            <td><?= $id ?></td>
+                                            <td><?= $product['title'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php endif; ?>
+                            <!-- /.card-body -->
+                        </div>
                         <?php if (!empty($attributes)): ?>
                         <div class="card">
                             <div class="card-header d-flex p-0">
-
                                 <ul class="nav nav-pills p-2">
                                     <?php foreach ($attributes as $key => $attribute): ?>
                                         <li class="nav-item">
@@ -223,5 +256,16 @@
 <script>
   window.onload = function () {
     $('#productContent').summernote();
+    $('.related-products-select-multiple').select2(
+      {
+        placeholder: "Select a product",
+
+        ajax: {
+          url: '/admin/products/relatedProductsWebservice?product_id=<?= $formData['id'] ?? 0?>',
+          dataType: 'json',
+          delay: 500,
+        }
+      }
+    );
   }
 </script>

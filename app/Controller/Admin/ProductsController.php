@@ -121,9 +121,34 @@ class ProductsController extends AbstractAdminController
         ];
         $productAttributes = $productModel->getAttributesIds($id);
         $attributes = (new CategoryFilter())->getFiltersCache();
-        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses', 'attributes', 'productAttributes');
+        $relatedProducts = $productModel->getRelatedProducts($id);
+        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses', 'attributes', 'productAttributes', 'relatedProducts');
         $this->setData($data);
         $this->setMeta(['general' => ['page' => 'catalog']]);
         echo $this->renderPage();
+    }
+
+    public function relatedProductsWebservice()
+    {
+        if (!$this->isAjax()) redirect();
+
+        $getParams = $this->getParameters('GET');
+        $query = $getParams['q'] ?? null;
+        $productId = $getParams['product_id'] ?? null;
+        $productModel = new ProductModel();
+        $data = $productModel->searchProductsService($query, 'id, title');
+        $data = array_map(fn($item) => [
+            'id' => $item['id'],
+            'text' => $item['title']
+        ], $data);
+        if ($productId) {
+            $relatedProducts = array_keys($productModel->getRelatedProducts($productId));
+            foreach ($data as &$item) {
+                if (in_array($item['id'], $relatedProducts)) {
+                    $item['selected'] = true;
+                }
+            }
+        }
+        echo json_encode(['results' => $data]);
     }
 }
