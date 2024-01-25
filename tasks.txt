@@ -124,12 +124,12 @@ Tasks
 30. Related Product <- DONE!
     1. Select 2 +
     2. handle save related products +
-31. Images
-    1. Setting for images width-height
-    2. Form html for sending base image and gallery
-    3. Script for uploading images
-    4. Class for proccessing images
-    5.
+31. Images <- DONE!
+    1. Setting for images width-height +
+    2. Form html for sending base image and gallery +
+    3. Script for uploading images +
+    4. Class for proccessing images +
+32.
 
 
 
