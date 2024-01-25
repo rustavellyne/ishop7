@@ -24,6 +24,7 @@ class ProductModel extends AbstractModel
         'hit' => '',
         'img' => '',
     ];
+    private array $gallery = [];
 
     public function setProductId(int $id)
     {
@@ -195,8 +196,20 @@ class ProductModel extends AbstractModel
             $this->removeRelatedProducts($id);
             //save related
             $this->saveRelatedProducts($id);
+            //save gallery
+            $this->saveGallery($id);
         }
         return $id;
+    }
+    public function saveGallery($id)
+    {
+        if (empty($this->gallery)) return;
+        $sql = "INSERT INTO gallery ( product_id, img ) VALUES ";
+        foreach ($this->gallery as $img) {
+            $sql .= "( '{$id}', '{$img}' ),";
+        }
+        $sql = rtrim($sql, ',');
+        $this->db->execSql($sql);
     }
 
     public function saveProductAttributes($productId)
@@ -253,11 +266,14 @@ class ProductModel extends AbstractModel
             }
             $data['alias'] = $alias;
         }
-        $data['img'] = 'temp';
         $data['hit'] = isset($data['hit']) && $data['hit'] == 'on' ? '2' : '1'; // ENUM index
         $data['status'] = $data['status'] == '1' ? '2' : '1'; // ENUM index
         $this->attr = $data['group'] ?? [];
         $this->related = $data['related'] ?? [];
+        $data['img'] = $data['loadedImages']['main_image'][0] ?? 'no_image.jpg';
+        if (isset($data['loadedImages']['gallery'])) {
+            $this->gallery = $data['loadedImages']['gallery'];
+        }
         return $data;
     }
 

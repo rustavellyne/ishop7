@@ -9,6 +9,7 @@ use IShop\Model\PaginationModel;
 use IShop\Model\ProductModel;
 use IShop\Model\UserModel;
 use IShop\Service\FlashMessage;
+use IShop\Service\ImageLoader;
 use IShop\widgets\categoryFilters\CategoryFilter;
 use Valitron\Validator;
 
@@ -43,7 +44,14 @@ class ProductsController extends AbstractAdminController
             ];
             $v->rules($rules);
             if ($v->validate()) {
-                $id = $productModel->load($_POST)->save();
+                $data = $_POST;
+                if (isset($_FILES['main_image']) || isset($_FILES['gallery'])) {
+                    unset($_FILES['files']);
+                    $images = (new ImageLoader($_FILES))->getImagesNames();
+                    $data['loadedImages'] = $images;
+                }
+
+                $productModel->load($data)->save();
                 FlashMessage::addMessage('Product added', FlashMessage::SUCCESS);
                 redirect('/admin/products   ');
             } else {
@@ -60,7 +68,9 @@ class ProductsController extends AbstractAdminController
         ];
         $attributes = (new CategoryFilter())->getFiltersCache();
         $productAttributes = [];
-        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses', 'attributes', 'productAttributes');
+        $mainImage = '';
+        $gallery = [];
+        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses', 'attributes', 'productAttributes', 'mainImage', 'gallery');
         $this->setData($data);
         $this->setMeta(['general' => ['page' => 'catalog']]);
         echo $this->renderPage();
@@ -104,7 +114,14 @@ class ProductsController extends AbstractAdminController
             ];
             $v->rules($rules);
             if ($v->validate()) {
-                $productModel->load($_POST)->save();
+                $data = $_POST;
+                if (isset($_FILES['main_image']) || isset($_FILES['gallery'])) {
+                    unset($_FILES['files']);
+                    $images = (new ImageLoader($_FILES))->getImagesNames();
+                    $data['loadedImages'] = $images;
+                }
+
+                $productModel->load($data)->save();
                 FlashMessage::addMessage('Product Updated', FlashMessage::SUCCESS);
                 redirect('/admin/products');
             } else {
@@ -122,7 +139,9 @@ class ProductsController extends AbstractAdminController
         $productAttributes = $productModel->getAttributesIds($id);
         $attributes = (new CategoryFilter())->getFiltersCache();
         $relatedProducts = $productModel->getRelatedProducts($id);
-        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses', 'attributes', 'productAttributes', 'relatedProducts');
+        $mainImage = $product['img'];
+        $gallery = $productModel->getProductGallery($id);
+        $data = compact('formData', 'errors', 'page', 'brands', 'categories', 'statuses', 'attributes', 'productAttributes', 'relatedProducts', 'mainImage', 'gallery');
         $this->setData($data);
         $this->setMeta(['general' => ['page' => 'catalog']]);
         echo $this->renderPage();

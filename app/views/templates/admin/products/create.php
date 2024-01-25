@@ -173,14 +173,59 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
+                                <h3 class="card-title">Main Image</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <div class="main-image">
+                                    <?php if (!empty($mainImage)):?>
+                                    <img src="/images/<?= $mainImage ?? ''?>" class="img-fluid" alt="Responsive image">
+                                    <?php endif;?>
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="mainImage" name="main_image">
+                                            <label class="custom-file-label" for="mainImage">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Gallery</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <div class="gallery-image">
+                                    <?php if (!empty($gallery)):?>
+                                        <div class="row">
+                                            <?php foreach ($gallery as $image): ?>
+                                            <div class="col-sm-2">
+                                                <img src="images/<?= $image['img'] ?>" class="img-fluid mb-2" alt="white sample">
+                                            </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif;?>
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="gallery" name="gallery[]" multiple>
+                                            <label class="custom-file-label" for="gallery">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
                                 <h3 class="card-title">Related Products</h3>
                             </div>
                             <div class="form-group">
                                 <select class="form-control related-products-select-multiple w-100" name="related[]" multiple="multiple">
-
+                                    <?php if (!empty($relatedProducts)):?>
                                     <?php foreach ($relatedProducts as $id => $product): ?>
                                         <option value="<?= $id ?>" selected> <?= $product['title'] ?></option>
                                     <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </select>
                             </div>
                             <!-- /.card-header -->
