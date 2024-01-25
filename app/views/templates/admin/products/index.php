@@ -64,7 +64,7 @@
                                         <td><?= $product->price ?></td>
                                         <td><?= $product->status ? 'Active' : 'Disabled' ?></td>
                                         <td>
-                                            <a class="btn btn-outline-primary" href="/admin/products/view?id=<?= $product->id?>">
+                                            <a class="btn btn-outline-primary" href="/product/view/<?= $product->alias?>" target="_blank">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             <a class="btn btn-outline-success" href="/admin/products/edit?id=<?= $product->id?>">
