@@ -51,6 +51,7 @@
                             <tbody>
                             <?php if(!empty($groupsAndAttributes)): ?>
                                 <?php foreach ($groupsAndAttributes as $key => $attr): ?>
+                                    <?php if (!empty($attr['attr_id'])): ?>
                                     <tr>
                                         <td><?= $attr['attr_id'] ?></td>
                                         <td><?= $attr['attribute_title'] ?></td>
@@ -64,6 +65,7 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
