@@ -309,6 +309,12 @@
                                     <p>Cache</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="admin/currency" class="nav-link">
+                                    <i class="fa fa-dollar-sign nav-icon"></i>
+                                    <p>Currency</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

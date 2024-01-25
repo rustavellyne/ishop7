@@ -56,7 +56,7 @@
                             <div class="form-group <?= isset($errors['attr_group_id']) ? 'has-error is-invalid' : '' ?>">
                                 <label for="groupsSelect">Groups</label>
                                 <select id="groupsSelect" class="form-control custom-select" name="attr_group_id" required>
-                                    <option <?= isset($formData['']) && $formData['attr_group_id'] == '' ? 'selected' : '' ?> selected="" disabled="" value="">Select one</option>
+                                    <option <?= isset($formData['attr_group_id']) && $formData['attr_group_id'] == '' ? 'selected' : '' ?> selected="" disabled="" value="">Select one</option>
                                     <?php foreach ($groups as $group): ?>
                                         <option <?= isset($formData['attr_group_id']) && $formData['attr_group_id'] == $group->id ? 'selected' : '' ?> value="<?= $group->id ?>">
                                             <?= $group->title ?>

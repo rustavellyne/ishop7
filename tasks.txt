@@ -132,7 +132,8 @@ Tasks
 32. CRUD for attributes
     1. CRUD for groups
     2. CRUD for attributes
-    3.
+33. Currency
+    1. CRUD for currency
 
 
 
