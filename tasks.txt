@@ -129,7 +129,10 @@ Tasks
     2. Form html for sending base image and gallery +
     3. Script for uploading images +
     4. Class for proccessing images +
-32.
+32. CRUD for attributes
+    1. CRUD for groups
+    2. CRUD for attributes
+    3.
 
 
 

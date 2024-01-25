@@ -266,6 +266,29 @@
                         </ul>
                     </li>
                     <li class="nav-item">
+                        <a href="#" class="nav-link <?= $general['page'] == 'eav' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-object-group"></i>
+                            <p>
+                                EAV
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="admin/groups" class="nav-link">
+                                    <i class="fa fa-fast-forward nav-icon"></i>
+                                    <p>Groups</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="admin/attributes" class="nav-link">
+                                    <i class="fa fa-fast-forward  nav-icon"></i>
+                                    <p>Attributes</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link <?= $general['page'] == 'settings' ? 'active' : '' ?>">
                             <i class="nav-icon fa fa-cog "></i>
                             <p>
