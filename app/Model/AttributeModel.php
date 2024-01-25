@@ -8,7 +8,13 @@ class AttributeModel extends AbstractModel
      * @var mixed
      */
     private array $attributes = [
-        'title' => ''
+        'attributes' => [
+            'value' => '',
+            'attr_group_id' => ''
+        ],
+        'groups' => [
+            'title' => ''
+        ]
     ];
     private ?int $groupId = null;
 
@@ -16,6 +22,11 @@ class AttributeModel extends AbstractModel
     {
         $sql = "SELECT a.id as group_id, a.title as group_title, a2.id as attr_id, a2.value as attribute_title, a2.attr_group_id FROM attributegroup a LEFT JOIN attributevalue a2 ON a.id = a2.attr_group_id";
         return $this->db->getAll($sql);
+    }
+
+    public function getAttributesInGroup($group_id)
+    {
+        return $this->db->findAll('attributevalue', "WHERE attr_group_id = ?", [$group_id]);
     }
 
     public function getCountGroups($attrId): int
@@ -35,13 +46,18 @@ class AttributeModel extends AbstractModel
         return $this->db->findOne('attributegroup', "WHERE id = ?", [$id]);
     }
 
-    public function load(array $data)
+    public function getAttributeById($id)
     {
-        foreach ($this->attributes as $key => $value) {
+        return $this->db->findOne('attributevalue', "WHERE id = ?", [$id]);
+    }
+
+    public function load(array $data, $type = 'groups')
+    {
+        foreach ($this->attributes[$type] as $key => $value) {
             if (!isset($data[$key])) {
                 throw new \Exception("Error field $key is required");
             }
-            $this->attributes[$key] = $data[$key];
+            $this->attributes[$type][$key] = $data[$key];
         }
 
         return $this;
@@ -56,12 +72,12 @@ class AttributeModel extends AbstractModel
         $this->db->remove($bean);
     }
 
-    public function save()
+    public function save($table = 'attributegroup', $type = 'groups')
     {
         if ($this->groupId) {
-            $this->attributes['id'] = $this->groupId;
+            $this->attributes[$type]['id'] = $this->groupId;
         }
-        return $this->db->save('attributegroup', $this->attributes);
+        return $this->db->save($table, $this->attributes[$type]);
     }
 
 }

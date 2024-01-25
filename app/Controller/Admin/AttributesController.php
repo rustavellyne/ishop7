@@ -10,12 +10,12 @@ use IShop\Model\UserModel;
 use IShop\Service\FlashMessage;
 use Valitron\Validator;
 
-class GroupsController extends AbstractAdminController
+class AttributesController extends AbstractAdminController
 {
     public function index()
     {
-        $groups = (new AttributeModel())->getGroups();
-        $data = compact('groups');
+        $groupsAndAttributes = (new AttributeModel())->getAttributeAndGroups();
+        $data = compact('groupsAndAttributes');
         $this->setData($data);
         $this->setMeta(['general' => ['page' => 'eav']]);
         echo $this->renderPage();
@@ -26,20 +26,14 @@ class GroupsController extends AbstractAdminController
         $parameters = $this->getParameters('GET');
         $id = $parameters['id'] ?? 0;
         $attrModel = new AttributeModel();
-        $group = $attrModel->getGroupById($id);
-        if (!is_numeric($id) || $id <= 0 || empty($group)) {
-            FlashMessage::addMessage('Wrong product ID', FlashMessage::ERROR);
-            redirect('/admin/groups');
+        $attr = $attrModel->getAttributeById($id);
+        if (!is_numeric($id) || $id <= 0 || empty($attr)) {
+            FlashMessage::addMessage('Wrong attr ID', FlashMessage::ERROR);
+            redirect('/admin/attributes');
         }
-        // Check if group has children
-        $children = $attrModel->getAttributesInGroup($id);
-        if (!empty($children)) {
-            FlashMessage::addMessage('Group can be removed, as it has children attributes', FlashMessage::ERROR);
-            redirect('/admin/groups');
-        }
-        $attrModel->delete($group);
+        $attrModel->delete($attr);
         FlashMessage::addMessage('Group removed', FlashMessage::SUCCESS);
-        redirect('/admin/groups');
+        redirect('/admin/attributes');
     }
 
     public function create()
@@ -50,21 +44,22 @@ class GroupsController extends AbstractAdminController
         if ($this->isPost()) {
             $v = new Validator($_POST);
             $rules = [
-                'required' => [['title']],
+                'required' => [['value'], ['attr_group_id']],
             ];
             $v->rules($rules);
             if ($v->validate()) {
                 $groupModel = new AttributeModel();
-                $groupModel->load($_POST)->save();
-                FlashMessage::addMessage('EAV Group Created', FlashMessage::SUCCESS);
-                redirect('/admin/groups');
+                $groupModel->load($_POST, 'attributes')->save('attributevalue', 'attributes');
+                FlashMessage::addMessage('EAV Attribute Created', FlashMessage::SUCCESS);
+                redirect('/admin/attributes');
             } else {
                 FlashMessage::addMessage('Check Form', FlashMessage::ERROR);
                 $errors = $v->errors();
                 $formData = $_POST;
             }
         }
-        $data = compact('formData', 'errors', 'page');
+        $groups = $groups = (new AttributeModel())->getGroups();
+        $data = compact('formData', 'errors', 'page', 'groups');
         $this->setData($data);
         $this->setMeta(['general' => ['page' => 'eav']]);
         echo $this->renderPage();
@@ -72,19 +67,20 @@ class GroupsController extends AbstractAdminController
 
     public function edit()
     {
-        $this->templateName = 'admin/groups/create';
+        $this->templateName = 'admin/attributes/create';
         $parameters = $this->getParameters('GET');
         $id = $parameters['id'] ?? 0;
         $attrModel = new AttributeModel();
-        $group = $attrModel->getGroupById($id);
-        if (!is_numeric($id) || $id <= 0 || empty($group)) {
-            FlashMessage::addMessage('Wrong product ID', FlashMessage::ERROR);
-            redirect('/admin/groups');
+        $attr = $attrModel->getAttributeById($id);
+        if (!is_numeric($id) || $id <= 0 || empty($attr)) {
+            FlashMessage::addMessage('Wrong Attribute ID', FlashMessage::ERROR);
+            redirect('/admin/attributes');
         }
 
         $formData = [
-            'id' => $group->id,
-            'title' => $group->title,
+            'id'            => $attr->id,
+            'value'         => $attr->value,
+            'attr_group_id' => $attr->attr_group_id,
         ];
         $errors = null;
         $page = [
@@ -94,22 +90,23 @@ class GroupsController extends AbstractAdminController
         if ($this->isPost()) {
             $v = new Validator($_POST);
             $rules = [
-                'required' => [['title'], ['id']],
+                'required' => [['value'], ['id']],
             ];
             $v->rules($rules);
             if ($v->validate()) {
                 $groupModel = new AttributeModel();
                 $groupModel->setGroupId($id);
-                $groupModel->load($_POST)->save();
+                $groupModel->load($_POST, 'attributes')->save('attributevalue', 'attributes');
                 FlashMessage::addMessage('EAV Group Updated', FlashMessage::SUCCESS);
-                redirect('/admin/groups');
+                redirect('/admin/attributes');
             } else {
                 FlashMessage::addMessage('Check Form', FlashMessage::ERROR);
                 $errors = $v->errors();
                 $formData = $_POST;
             }
         }
-        $data = compact('formData', 'errors', 'page');
+        $groups = (new AttributeModel())->getGroups();
+        $data = compact('formData', 'errors', 'page', 'groups');
         $this->setData($data);
         $this->setMeta(['general' => ['page' => 'eav']]);
         echo $this->renderPage();
